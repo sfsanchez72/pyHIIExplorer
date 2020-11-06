@@ -534,9 +534,9 @@ def HIIextraction(Ha_image,blobs_log_MUSE,kind=0,we=2,\
     #
     # Only finite values
     #
-    mask_fin = np.isfinite(blobs_F_Ha)
-    blobs_log_MUSE = blobs_log_MUSE[mask_fin]
-    blobs_F_Ha = blobs_F_Ha[mask_fin]
+    #mask_fin = np.isfinite(blobs_F_Ha)
+    #blobs_log_MUSE = blobs_log_MUSE[mask_fin]
+    #blobs_F_Ha = blobs_F_Ha[mask_fin]
     #
     # Create image of HII_regions
     #
