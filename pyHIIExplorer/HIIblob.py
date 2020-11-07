@@ -782,6 +782,118 @@ def do_kdtree(combined_x_y_arrays,points,k=1):
     dist, indexes = mytree.query(points,k=k)
     return np.array(dist),np.array(indexes)
 
+
+def create_diff_new(Ha_image_clean,blobs,FWHM_MUSE,diff_points):
+#    fig = plt.figure(figsize=(4,4))
+#    fig.canvas.set_window_title('Canvas active title')
+#    ax = fig.add_subplot(111)
+    
+    (ny,nx) = Ha_image_clean.shape
+    image_w = np.ones((ny,nx))
+    dr = FWHM_MUSE
+    for blob in blobs:
+        y, x, r = blob
+        i0=int(x-dr*r)
+        i1=int(x+dr*r)
+        j0=int(y-dr*r)
+        j1=int(y+dr*r)
+        if (i0<0):
+            i0=0
+        if (j0<0):
+            j0=0
+        if (i1>(nx-1)):
+            i1=nx-1
+        if (j1>(ny-1)):
+            j1=ny-1
+        image_sec=image_w[j0:j1,i0:i1] 
+        (ny_sec,nx_sec)=image_sec.shape
+        x_g = np.arange(0,nx_sec,1)
+        y_g = np.arange(0,ny_sec,1)        
+        x_g, y_g = np.meshgrid(x_g, y_g) # get 2D variables instead of 1D
+        xp_g = x-i0
+        yp_g = y-j0
+        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
+        image_w_now = 1.0+20*(w_g)
+        image_w[j0:j1,i0:i1]=image_w[j0:j1,i0:i1]/image_w_now
+    for blob in diff_points:
+        y, x = blob
+        r = 3
+        i0=int(x-dr*r)
+        i1=int(x+dr*r)
+        j0=int(y-dr*r)
+        j1=int(y+dr*r)
+        if (i0<0):
+            i0=0
+        if (j0<0):
+            j0=0
+        if (i1>(nx-1)):
+            i1=nx-1
+        if (j1>(ny-1)):
+            j1=ny-1
+        image_sec=image_w[j0:j1,i0:i1] 
+        (ny_sec,nx_sec)=image_sec.shape
+        x_g = np.arange(0,nx_sec,1)
+        y_g = np.arange(0,ny_sec,1)        
+        x_g, y_g = np.meshgrid(x_g, y_g) # get 2D variables instead of 1D
+        xp_g = x-i0
+        yp_g = y-j0
+        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
+        image_w_now = 1.0+30*(w_g)
+        image_w[j0:j1,i0:i1]=image_w[j0:j1,i0:i1]*image_w_now
+
+    image_diff = np.zeros((ny,nx))
+    image_Ha = Ha_image_clean*image_w
+    r_lim = 3*FWHM_MUSE
+#
+# No weight!
+#
+    r = 3
+    for j in range(ny):
+        for i in range(nx):
+            i0=int(i-dr*r)
+            i1=int(i+dr*r)
+            j0=int(j-dr*r)
+            j1=int(j+dr*r)
+            if (i0<0):
+                i0=0
+            if (j0<0):
+                j0=0
+            if (i1>(nx-1)):
+                i1=nx-1
+            if (j1>(ny-1)):
+                j1=ny-1
+            image_sec=image_Ha[j0:j1,i0:i1]             
+            image_w_sec=image_w[j0:j1,i0:i1] 
+            (ny_sec,nx_sec)=image_sec.shape
+            x_g = np.arange(0,nx_sec,1)
+            y_g = np.arange(0,ny_sec,1)
+            x_g, y_g = np.meshgrid(x_g, y_g) # get 2D variables instead of 1D
+            xp_g = i-i0
+            yp_g = j-j0
+            dist = np.sqrt((x_g-xp_g)**2+(y_g-yp_g)**2)
+#            image_sec[dist>2*dr] = 0
+#            image_w_sec[dist>2*dr] = 0            
+#            print(dist)
+            val1 = np.nansum(np.ma.masked_array(image_sec,\
+                                                mask=dist>3.5*r))#np.nansum(image_sec)
+            val2 = np.nansum(np.ma.masked_array(image_w_sec,\
+                                                mask=dist>3.5*r))#np.nansum(image_sec)
+#            val2 = np.ma.sum(image_w_sec, mask=dist>3*r)#np.nansum(image_sec)
+#            val2 = np.nansum(image_w_sec)
+            val = val1/val2 #np.nansum(image_sec)/np.nansum(image_w_sec)
+            image_diff[j,i] = val
+#            ax.cla()
+#            ax.imshow(np.ma.masked_array(dist,mask=dist>2*r))
+#            ax.imshow(np.ma.masked_array(image_w_sec,mask=dist>2*r))
+#            ax.set_title('[i,j]='+str(i)+','+str(j)+' = '+str(val1)+\
+#                         ' '+str(val2)+' '+str(val))
+#            fig.canvas.draw()
+
+        #print(val)
+#        print(j)
+    image_diff=gaussian_filter(image_diff, sigma=1.5)
+    return image_diff
+
 ################################################################################################
 # SFS & JKBB
 # * END
