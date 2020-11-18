@@ -1,0 +1,531 @@
+SIMPLE | 1 
+BITPIX | 8 
+NAXIS | 2 
+NAXIS1 | 1395 
+NAXIS2 | 799 
+PCOUNT | 0 
+GCOUNT | 1 
+TFIELDS | 174 
+TTYPE1 | HIIREGID 
+TFORM1 | 11A 
+TUNIT1 | none 
+TTYPE2 | X 
+TFORM2 | D 
+TUNIT2 | spaxels 
+TTYPE3 | Y 
+TFORM3 | D 
+TUNIT3 | spaxels 
+TTYPE4 | R 
+TFORM4 | D 
+TUNIT4 | spaxels 
+TTYPE5 | RA 
+TFORM5 | D 
+TUNIT5 | deg 
+TTYPE6 | DEC 
+TFORM6 | D 
+TUNIT6 | deg 
+TTYPE7 | flux_HeI4922 
+TFORM7 | D 
+TUNIT7 | 10**-16 cm-2 erg s-1 
+TTYPE8 | flux_[OIII]5007 
+TFORM8 | D 
+TUNIT8 | 10**-16 cm-2 erg s-1 
+TTYPE9 | flux_[OIII]4959 
+TFORM9 | D 
+TUNIT9 | 10**-16 cm-2 erg s-1 
+TTYPE10 | flux_Hb 
+TFORM10 | D 
+TUNIT10 | 10**-16 cm-2 erg s-1 
+TTYPE11 | flux_[FeII] 
+TFORM11 | D 
+TUNIT11 | 10**-16 cm-2 erg s-1 
+TTYPE12 | flux_[NI] 
+TFORM12 | D 
+TUNIT12 | 10**-16 cm-2 erg s-1 
+TTYPE13 | flux_[ClIII] 
+TFORM13 | D 
+TUNIT13 | 10**-16 cm-2 erg s-1 
+TTYPE14 | flux_OI 
+TFORM14 | D 
+TUNIT14 | 10**-16 cm-2 erg s-1 
+TTYPE15 | flux_[OI] 
+TFORM15 | D 
+TUNIT15 | 10**-16 cm-2 erg s-1 
+TTYPE16 | flux_[NII] 
+TFORM16 | D 
+TUNIT16 | 10**-16 cm-2 erg s-1 
+TTYPE17 | flux_HeI5876 
+TFORM17 | D 
+TUNIT17 | 10**-16 cm-2 erg s-1 
+TTYPE18 | flux_[SIII] 
+TFORM18 | D 
+TUNIT18 | 10**-16 cm-2 erg s-1 
+TTYPE19 | flux_SiII 
+TFORM19 | D 
+TUNIT19 | 10**-16 cm-2 erg s-1 
+TTYPE20 | flux_Ha 
+TFORM20 | D 
+TUNIT20 | 10**-16 cm-2 erg s-1 
+TTYPE21 | flux_[NII]6584 
+TFORM21 | D 
+TUNIT21 | 10**-16 cm-2 erg s-1 
+TTYPE22 | flux_[NII]6548 
+TFORM22 | D 
+TUNIT22 | 10**-16 cm-2 erg s-1 
+TTYPE23 | flux_HeI6678 
+TFORM23 | D 
+TUNIT23 | 10**-16 cm-2 erg s-1 
+TTYPE24 | flux_[SII]6717 
+TFORM24 | D 
+TUNIT24 | 10**-16 cm-2 erg s-1 
+TTYPE25 | flux_[SII]6731 
+TFORM25 | D 
+TUNIT25 | 10**-16 cm-2 erg s-1 
+TTYPE26 | flux_[ArIII] 
+TFORM26 | D 
+TUNIT26 | 10**-16 cm-2 erg s-1 
+TTYPE27 | flux_[OII] 
+TFORM27 | D 
+TUNIT27 | 10**-16 cm-2 erg s-1 
+TTYPE28 | vel_HeI4922 
+TFORM28 | D 
+TUNIT28 | km s-1 
+TTYPE29 | vel_[OIII]5007 
+TFORM29 | D 
+TUNIT29 | km s-1 
+TTYPE30 | vel_[OIII]4959 
+TFORM30 | D 
+TUNIT30 | km s-1 
+TTYPE31 | vel_Hb 
+TFORM31 | D 
+TUNIT31 | km s-1 
+TTYPE32 | vel_[FeII] 
+TFORM32 | D 
+TUNIT32 | km s-1 
+TTYPE33 | vel_[NI] 
+TFORM33 | D 
+TUNIT33 | km s-1 
+TTYPE34 | vel_[ClIII] 
+TFORM34 | D 
+TUNIT34 | km s-1 
+TTYPE35 | vel_OI 
+TFORM35 | D 
+TUNIT35 | km s-1 
+TTYPE36 | vel_[OI] 
+TFORM36 | D 
+TUNIT36 | km s-1 
+TTYPE37 | vel_[NII] 
+TFORM37 | D 
+TUNIT37 | km s-1 
+TTYPE38 | vel_HeI5876 
+TFORM38 | D 
+TUNIT38 | km s-1 
+TTYPE39 | vel_[SIII] 
+TFORM39 | D 
+TUNIT39 | km s-1 
+TTYPE40 | vel_SiII 
+TFORM40 | D 
+TUNIT40 | km s-1 
+TTYPE41 | vel_Ha 
+TFORM41 | D 
+TUNIT41 | km s-1 
+TTYPE42 | vel_[NII]6584 
+TFORM42 | D 
+TUNIT42 | km s-1 
+TTYPE43 | vel_[NII]6548 
+TFORM43 | D 
+TUNIT43 | km s-1 
+TTYPE44 | vel_HeI6678 
+TFORM44 | D 
+TUNIT44 | km s-1 
+TTYPE45 | vel_[SII]6717 
+TFORM45 | D 
+TUNIT45 | km s-1 
+TTYPE46 | vel_[SII]6731 
+TFORM46 | D 
+TUNIT46 | km s-1 
+TTYPE47 | vel_[ArIII] 
+TFORM47 | D 
+TUNIT47 | km s-1 
+TTYPE48 | vel_[OII] 
+TFORM48 | D 
+TUNIT48 | km s-1 
+TTYPE49 | disp_HeI4922 
+TFORM49 | D 
+TUNIT49 | km s-1 
+TTYPE50 | disp_[OIII]5007 
+TFORM50 | D 
+TUNIT50 | km s-1 
+TTYPE51 | disp_[OIII]4959 
+TFORM51 | D 
+TUNIT51 | km s-1 
+TTYPE52 | disp_Hb 
+TFORM52 | D 
+TUNIT52 | km s-1 
+TTYPE53 | disp_[FeII] 
+TFORM53 | D 
+TUNIT53 | km s-1 
+TTYPE54 | disp_[NI] 
+TFORM54 | D 
+TUNIT54 | km s-1 
+TTYPE55 | disp_[ClIII] 
+TFORM55 | D 
+TUNIT55 | km s-1 
+TTYPE56 | disp_OI 
+TFORM56 | D 
+TUNIT56 | km s-1 
+TTYPE57 | disp_[OI] 
+TFORM57 | D 
+TUNIT57 | km s-1 
+TTYPE58 | disp_[NII] 
+TFORM58 | D 
+TUNIT58 | km s-1 
+TTYPE59 | disp_HeI5876 
+TFORM59 | D 
+TUNIT59 | km s-1 
+TTYPE60 | disp_[SIII] 
+TFORM60 | D 
+TUNIT60 | km s-1 
+TTYPE61 | disp_SiII 
+TFORM61 | D 
+TUNIT61 | km s-1 
+TTYPE62 | disp_Ha 
+TFORM62 | D 
+TUNIT62 | km s-1 
+TTYPE63 | disp_[NII]6584 
+TFORM63 | D 
+TUNIT63 | km s-1 
+TTYPE64 | disp_[NII]6548 
+TFORM64 | D 
+TUNIT64 | km s-1 
+TTYPE65 | disp_HeI6678 
+TFORM65 | D 
+TUNIT65 | km s-1 
+TTYPE66 | disp_[SII]6717 
+TFORM66 | D 
+TUNIT66 | km s-1 
+TTYPE67 | disp_[SII]6731 
+TFORM67 | D 
+TUNIT67 | km s-1 
+TTYPE68 | disp_[ArIII] 
+TFORM68 | D 
+TUNIT68 | km s-1 
+TTYPE69 | disp_[OII] 
+TFORM69 | D 
+TUNIT69 | km s-1 
+TTYPE70 | EW_HeI4922 
+TFORM70 | D 
+TUNIT70 | Angstrom 
+TTYPE71 | EW_[OIII]5007 
+TFORM71 | D 
+TUNIT71 | Angstrom 
+TTYPE72 | EW_[OIII]4959 
+TFORM72 | D 
+TUNIT72 | Angstrom 
+TTYPE73 | EW_Hb 
+TFORM73 | D 
+TUNIT73 | Angstrom 
+TTYPE74 | EW_[FeII] 
+TFORM74 | D 
+TUNIT74 | Angstrom 
+TTYPE75 | EW_[NI] 
+TFORM75 | D 
+TUNIT75 | Angstrom 
+TTYPE76 | EW_[ClIII] 
+TFORM76 | D 
+TUNIT76 | Angstrom 
+TTYPE77 | EW_OI 
+TFORM77 | D 
+TUNIT77 | Angstrom 
+TTYPE78 | EW_[OI] 
+TFORM78 | D 
+TUNIT78 | Angstrom 
+TTYPE79 | EW_[NII] 
+TFORM79 | D 
+TUNIT79 | Angstrom 
+TTYPE80 | EW_HeI5876 
+TFORM80 | D 
+TUNIT80 | Angstrom 
+TTYPE81 | EW_[SIII] 
+TFORM81 | D 
+TUNIT81 | Angstrom 
+TTYPE82 | EW_SiII 
+TFORM82 | D 
+TUNIT82 | Angstrom 
+TTYPE83 | EW_Ha 
+TFORM83 | D 
+TUNIT83 | Angstrom 
+TTYPE84 | EW_[NII]6584 
+TFORM84 | D 
+TUNIT84 | Angstrom 
+TTYPE85 | EW_[NII]6548 
+TFORM85 | D 
+TUNIT85 | Angstrom 
+TTYPE86 | EW_HeI6678 
+TFORM86 | D 
+TUNIT86 | Angstrom 
+TTYPE87 | EW_[SII]6717 
+TFORM87 | D 
+TUNIT87 | Angstrom 
+TTYPE88 | EW_[SII]6731 
+TFORM88 | D 
+TUNIT88 | Angstrom 
+TTYPE89 | EW_[ArIII] 
+TFORM89 | D 
+TUNIT89 | Angstrom 
+TTYPE90 | EW_[OII] 
+TFORM90 | D 
+TUNIT90 | Angstrom 
+TTYPE91 | e_flux_HeI4922 
+TFORM91 | D 
+TUNIT91 | 10**-16 cm-2 erg s-1 
+TTYPE92 | e_flux_[OIII]5007 
+TFORM92 | D 
+TUNIT92 | 10**-16 cm-2 erg s-1 
+TTYPE93 | e_flux_[OIII]4959 
+TFORM93 | D 
+TUNIT93 | 10**-16 cm-2 erg s-1 
+TTYPE94 | e_flux_Hb 
+TFORM94 | D 
+TUNIT94 | 10**-16 cm-2 erg s-1 
+TTYPE95 | e_flux_[FeII] 
+TFORM95 | D 
+TUNIT95 | 10**-16 cm-2 erg s-1 
+TTYPE96 | e_flux_[NI] 
+TFORM96 | D 
+TUNIT96 | 10**-16 cm-2 erg s-1 
+TTYPE97 | e_flux_[ClIII] 
+TFORM97 | D 
+TUNIT97 | 10**-16 cm-2 erg s-1 
+TTYPE98 | e_flux_OI 
+TFORM98 | D 
+TUNIT98 | 10**-16 cm-2 erg s-1 
+TTYPE99 | e_flux_[OI] 
+TFORM99 | D 
+TUNIT99 | 10**-16 cm-2 erg s-1 
+TTYPE100 | e_flux_[NII] 
+TFORM100 | D 
+TUNIT100 | 10**-16 cm-2 erg s-1 
+TTYPE101 | e_flux_HeI5876 
+TFORM101 | D 
+TUNIT101 | 10**-16 cm-2 erg s-1 
+TTYPE102 | e_flux_[SIII] 
+TFORM102 | D 
+TUNIT102 | 10**-16 cm-2 erg s-1 
+TTYPE103 | e_flux_SiII 
+TFORM103 | D 
+TUNIT103 | 10**-16 cm-2 erg s-1 
+TTYPE104 | e_flux_Ha 
+TFORM104 | D 
+TUNIT104 | 10**-16 cm-2 erg s-1 
+TTYPE105 | e_flux_[NII]6584 
+TFORM105 | D 
+TUNIT105 | 10**-16 cm-2 erg s-1 
+TTYPE106 | e_flux_[NII]6548 
+TFORM106 | D 
+TUNIT106 | 10**-16 cm-2 erg s-1 
+TTYPE107 | e_flux_HeI6678 
+TFORM107 | D 
+TUNIT107 | 10**-16 cm-2 erg s-1 
+TTYPE108 | e_flux_[SII]6717 
+TFORM108 | D 
+TUNIT108 | 10**-16 cm-2 erg s-1 
+TTYPE109 | e_flux_[SII]6731 
+TFORM109 | D 
+TUNIT109 | 10**-16 cm-2 erg s-1 
+TTYPE110 | e_flux_[ArIII] 
+TFORM110 | D 
+TUNIT110 | 10**-16 cm-2 erg s-1 
+TTYPE111 | e_flux_[OII] 
+TFORM111 | D 
+TUNIT111 | 10**-16 cm-2 erg s-1 
+TTYPE112 | e_vel_HeI4922 
+TFORM112 | D 
+TUNIT112 | km s-1 
+TTYPE113 | e_vel_[OIII]5007 
+TFORM113 | D 
+TUNIT113 | km s-1 
+TTYPE114 | e_vel_[OIII]4959 
+TFORM114 | D 
+TUNIT114 | km s-1 
+TTYPE115 | e_vel_Hb 
+TFORM115 | D 
+TUNIT115 | km s-1 
+TTYPE116 | e_vel_[FeII] 
+TFORM116 | D 
+TUNIT116 | km s-1 
+TTYPE117 | e_vel_[NI] 
+TFORM117 | D 
+TUNIT117 | km s-1 
+TTYPE118 | e_vel_[ClIII] 
+TFORM118 | D 
+TUNIT118 | km s-1 
+TTYPE119 | e_vel_OI 
+TFORM119 | D 
+TUNIT119 | km s-1 
+TTYPE120 | e_vel_[OI] 
+TFORM120 | D 
+TUNIT120 | km s-1 
+TTYPE121 | e_vel_[NII] 
+TFORM121 | D 
+TUNIT121 | km s-1 
+TTYPE122 | e_vel_HeI5876 
+TFORM122 | D 
+TUNIT122 | km s-1 
+TTYPE123 | e_vel_[SIII] 
+TFORM123 | D 
+TUNIT123 | km s-1 
+TTYPE124 | e_vel_SiII 
+TFORM124 | D 
+TUNIT124 | km s-1 
+TTYPE125 | e_vel_Ha 
+TFORM125 | D 
+TUNIT125 | km s-1 
+TTYPE126 | e_vel_[NII]6584 
+TFORM126 | D 
+TUNIT126 | km s-1 
+TTYPE127 | e_vel_[NII]6548 
+TFORM127 | D 
+TUNIT127 | km s-1 
+TTYPE128 | e_vel_HeI6678 
+TFORM128 | D 
+TUNIT128 | km s-1 
+TTYPE129 | e_vel_[SII]6717 
+TFORM129 | D 
+TUNIT129 | km s-1 
+TTYPE130 | e_vel_[SII]6731 
+TFORM130 | D 
+TUNIT130 | km s-1 
+TTYPE131 | e_vel_[ArIII] 
+TFORM131 | D 
+TUNIT131 | km s-1 
+TTYPE132 | e_vel_[OII] 
+TFORM132 | D 
+TUNIT132 | km s-1 
+TTYPE133 | e_disp_HeI4922 
+TFORM133 | D 
+TUNIT133 | km s-1 
+TTYPE134 | e_disp_[OIII]5007 
+TFORM134 | D 
+TUNIT134 | km s-1 
+TTYPE135 | e_disp_[OIII]4959 
+TFORM135 | D 
+TUNIT135 | km s-1 
+TTYPE136 | e_disp_Hb 
+TFORM136 | D 
+TUNIT136 | km s-1 
+TTYPE137 | e_disp_[FeII] 
+TFORM137 | D 
+TUNIT137 | km s-1 
+TTYPE138 | e_disp_[NI] 
+TFORM138 | D 
+TUNIT138 | km s-1 
+TTYPE139 | e_disp_[ClIII] 
+TFORM139 | D 
+TUNIT139 | km s-1 
+TTYPE140 | e_disp_OI 
+TFORM140 | D 
+TUNIT140 | km s-1 
+TTYPE141 | e_disp_[OI] 
+TFORM141 | D 
+TUNIT141 | km s-1 
+TTYPE142 | e_disp_[NII] 
+TFORM142 | D 
+TUNIT142 | km s-1 
+TTYPE143 | e_disp_HeI5876 
+TFORM143 | D 
+TUNIT143 | km s-1 
+TTYPE144 | e_disp_[SIII] 
+TFORM144 | D 
+TUNIT144 | km s-1 
+TTYPE145 | e_disp_SiII 
+TFORM145 | D 
+TUNIT145 | km s-1 
+TTYPE146 | e_disp_Ha 
+TFORM146 | D 
+TUNIT146 | km s-1 
+TTYPE147 | e_disp_[NII]6584 
+TFORM147 | D 
+TUNIT147 | km s-1 
+TTYPE148 | e_disp_[NII]6548 
+TFORM148 | D 
+TUNIT148 | km s-1 
+TTYPE149 | e_disp_HeI6678 
+TFORM149 | D 
+TUNIT149 | km s-1 
+TTYPE150 | e_disp_[SII]6717 
+TFORM150 | D 
+TUNIT150 | km s-1 
+TTYPE151 | e_disp_[SII]6731 
+TFORM151 | D 
+TUNIT151 | km s-1 
+TTYPE152 | e_disp_[ArIII] 
+TFORM152 | D 
+TUNIT152 | km s-1 
+TTYPE153 | e_disp_[OII] 
+TFORM153 | D 
+TUNIT153 | km s-1 
+TTYPE154 | e_EW_HeI4922 
+TFORM154 | D 
+TUNIT154 | Angstrom 
+TTYPE155 | e_EW_[OIII]5007 
+TFORM155 | D 
+TUNIT155 | Angstrom 
+TTYPE156 | e_EW_[OIII]4959 
+TFORM156 | D 
+TUNIT156 | Angstrom 
+TTYPE157 | e_EW_Hb 
+TFORM157 | D 
+TUNIT157 | Angstrom 
+TTYPE158 | e_EW_[FeII] 
+TFORM158 | D 
+TUNIT158 | Angstrom 
+TTYPE159 | e_EW_[NI] 
+TFORM159 | D 
+TUNIT159 | Angstrom 
+TTYPE160 | e_EW_[ClIII] 
+TFORM160 | D 
+TUNIT160 | Angstrom 
+TTYPE161 | e_EW_OI 
+TFORM161 | D 
+TUNIT161 | Angstrom 
+TTYPE162 | e_EW_[OI] 
+TFORM162 | D 
+TUNIT162 | Angstrom 
+TTYPE163 | e_EW_[NII] 
+TFORM163 | D 
+TUNIT163 | Angstrom 
+TTYPE164 | e_EW_HeI5876 
+TFORM164 | D 
+TUNIT164 | Angstrom 
+TTYPE165 | e_EW_[SIII] 
+TFORM165 | D 
+TUNIT165 | Angstrom 
+TTYPE166 | e_EW_SiII 
+TFORM166 | D 
+TUNIT166 | Angstrom 
+TTYPE167 | e_EW_Ha 
+TFORM167 | D 
+TUNIT167 | Angstrom 
+TTYPE168 | e_EW_[NII]6584 
+TFORM168 | D 
+TUNIT168 | Angstrom 
+TTYPE169 | e_EW_[NII]6548 
+TFORM169 | D 
+TUNIT169 | Angstrom 
+TTYPE170 | e_EW_HeI6678 
+TFORM170 | D 
+TUNIT170 | Angstrom 
+TTYPE171 | e_EW_[SII]6717 
+TFORM171 | D 
+TUNIT171 | Angstrom 
+TTYPE172 | e_EW_[SII]6731 
+TFORM172 | D 
+TUNIT172 | Angstrom 
+TTYPE173 | e_EW_[ArIII] 
+TFORM173 | D 
+TUNIT173 | Angstrom 
+TTYPE174 | e_EW_[OII] 
+TFORM174 | D 
+TUNIT174 | Angstrom 
+END |   
