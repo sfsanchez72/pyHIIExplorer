@@ -766,6 +766,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         axes[1][0].set_ylim(0,ny)
         axes[1][1].set_xlim(0,nx)
         axes[1][1].set_ylim(0,ny)
+#        name_fig = 
+#        fig.savefig("HIIblob.png", transparent=False, facecolor='white', edgecolor='white')
         plt.show()
 
     return blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux
@@ -783,7 +785,7 @@ def do_kdtree(combined_x_y_arrays,points,k=1):
     return np.array(dist),np.array(indexes)
 
 
-def create_diff_new(Ha_image_clean,blobs,FWHM_MUSE,diff_points):
+def create_diff_new(Ha_image_clean,blobs,FWHM_MUSE,diff_points, w_HII=20, w_DIG=30):
 #    fig = plt.figure(figsize=(4,4))
 #    fig.canvas.set_window_title('Canvas active title')
 #    ax = fig.add_subplot(111)
@@ -813,7 +815,7 @@ def create_diff_new(Ha_image_clean,blobs,FWHM_MUSE,diff_points):
         xp_g = x-i0
         yp_g = y-j0
         w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
-        image_w_now = 1.0+20*(w_g)
+        image_w_now = 1.0+w_HII*(w_g)
         image_w[j0:j1,i0:i1]=image_w[j0:j1,i0:i1]/image_w_now
     for blob in diff_points:
         y, x = blob
@@ -838,7 +840,7 @@ def create_diff_new(Ha_image_clean,blobs,FWHM_MUSE,diff_points):
         xp_g = x-i0
         yp_g = y-j0
         w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
-        image_w_now = 1.0+30*(w_g)
+        image_w_now = 1.0+w_DIG*(w_g)
         image_w[j0:j1,i0:i1]=image_w[j0:j1,i0:i1]*image_w_now
 
     image_diff = np.zeros((ny,nx))
@@ -894,7 +896,7 @@ def create_diff_new(Ha_image_clean,blobs,FWHM_MUSE,diff_points):
     image_diff=gaussian_filter(image_diff, sigma=1.5)
     return image_diff
 
-def create_diff_cube(cube_clean,blobs,FWHM_MUSE,diff_points):
+def create_diff_cube(cube_clean,blobs,FWHM_MUSE,diff_points, w_HII=20, w_DIG=30):
 #    fig = plt.figure(figsize=(4,4))
 #    fig.canvas.set_window_title('Canvas active title')
 #    ax = fig.add_subplot(111)
@@ -927,7 +929,7 @@ def create_diff_cube(cube_clean,blobs,FWHM_MUSE,diff_points):
         xp_g = x-i0
         yp_g = y-j0
         w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
-        image_w_now = 1.0+20*(w_g)
+        image_w_now = 1.0+w_HII*(w_g)
         image_w[j0:j1,i0:i1]=image_w[j0:j1,i0:i1]/image_w_now
     for blob in diff_points:
         y, x = blob
@@ -952,7 +954,7 @@ def create_diff_cube(cube_clean,blobs,FWHM_MUSE,diff_points):
         xp_g = x-i0
         yp_g = y-j0
         w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
-        image_w_now = 1.0+30*(w_g)
+        image_w_now = 1.0+w_DIG*(w_g)
         image_w[j0:j1,i0:i1]=image_w[j0:j1,i0:i1]*image_w_now
 
     #
