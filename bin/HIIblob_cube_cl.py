@@ -84,7 +84,7 @@ blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_
 
 if (DIG_type_weight==1):
     Ha_image_clean = F_Ha_MUSE - image_HII
-    diff_map_final =  create_diff_new(Ha_image_clean,blobs_final,FWHM_MUSE,diff_points, w_HII=20, w_DIG=30)
+    diff_map_final =  create_diff_new(Ha_image_clean,blobs_final,FWHM_MUSE,diff_points)
     
 
 print('Creating dictionaries with HII regions and DIG')
