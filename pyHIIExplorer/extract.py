@@ -159,6 +159,9 @@ def extracting_flux_elines(name, hdu, blobs_final, diff_points, plot=0, def_DIG=
         map_now = data[i,:,:]
         if ((def_DIG==1)&("flux" in val_now)&(error==0)):
             map_now = data[i,:,:] - cube_DIG[i,:,:]
+	    if ("flux" in val_now):
+                kind = 0
+                refined = 0
         if (error == 1):
             map_now = map_now**2
             
