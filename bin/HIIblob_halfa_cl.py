@@ -21,7 +21,6 @@ from scipy.optimize import curve_fit
 from scipy.optimize import leastsq
 from pyHIIExplorer.HIIblob import *
 from extract import *
-#from HIIblob import *
 import warnings
 import argparse
 
