@@ -20,7 +20,7 @@ from astropy.table import QTable, Table, Column
 from astropy import units as u
 from scipy.optimize import curve_fit
 from scipy.optimize import leastsq
-#from pyHIIExplorer.HIIblob import *
+from pyHIIExplorer.HIIblob import *
 import warnings
 warnings.filterwarnings('ignore')
 
