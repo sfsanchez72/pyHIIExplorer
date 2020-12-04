@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import numpy as np
 import scipy as sp
 from astropy.io import fits
@@ -20,7 +21,7 @@ from scipy.interpolate import griddata
 from scipy.optimize import minimize
 from scipy.optimize import curve_fit
 from scipy.optimize import leastsq
-from extract import *
+from pyHIIExplorer.extract import *
 from pyHIIExplorer.HIIblob import *
 import warnings
 import argparse
