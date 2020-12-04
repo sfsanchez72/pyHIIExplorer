@@ -37,7 +37,7 @@ def create_HII_seg(blobs, nx, ny):
         dist = np.sqrt((x_g-x)**2+(y_g-y)**2)
         image[dist<=2.5*r]=indx
         indx = indx+1
-    return np.rot90(image)
+    return image
 
 
 def create_mask_HII_seg(blobs, nx, ny):
@@ -49,7 +49,7 @@ def create_mask_HII_seg(blobs, nx, ny):
         x_g, y_g = np.meshgrid(x_g, y_g)
         dist = np.sqrt((x_g-x)**2+(y_g-y)**2)
         image[dist<=2.5*r]=0
-    return np.rot90(image)
+    return image
 
 
 def extracting_flux_elines(name, hdu, blobs_final, diff_points, plot=0, def_DIG=0, cube_DIG=np.array):
