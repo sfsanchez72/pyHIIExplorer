@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import numpy as np
 import scipy as sp
 from astropy.io import fits
