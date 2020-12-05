@@ -20,9 +20,8 @@ from scipy.interpolate import griddata
 from scipy.optimize import minimize
 from scipy.optimize import curve_fit
 from scipy.optimize import leastsq
-#from pyHIIExplorer.extract import *
+from pyHIIExplorer.extract import *
 from pyHIIExplorer.HIIblob import *
-from extract import *
 import warnings
 import argparse
 
