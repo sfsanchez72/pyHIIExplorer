@@ -609,7 +609,7 @@ def HIIdetection(Ha_image,min_sigma=0.8, max_sigma=2.0, num_sigma=30, threshold=
     #print('# Diff = ',len(diff_p_MUSE))
     return blobs_log_MUSE,blobs_F_Ha,image_HII,diff_interp_map_g
 
-def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refined=0):
+def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refined=0, name="NONE"):
     #min_sigma=0.8, max_sigma=2.0,\
     #                            num_sigma=30,):
     """
@@ -789,10 +789,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         axes[1][0].set_ylim(0,ny)
         axes[1][1].set_xlim(0,nx)
         axes[1][1].set_ylim(0,ny)
-#        name_fig = 
-#        fig.show()
-#        plt.show()
-        fig.savefig("HIIblob.png", transparent=False, facecolor='white', edgecolor='white')
+        fileout_png = "HIIblob."+name+".png"
+        fig.savefig(fileout_png, transparent=False, facecolor='white', edgecolor='white')
 
     return blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux
 
