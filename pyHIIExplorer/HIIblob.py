@@ -21,7 +21,11 @@ import numpy as np
 import scipy as sp
 from astropy.io import fits
 import matplotlib
+matplotlib.use('Agg')
+#matplotlib.interactive(False)
 import matplotlib.pyplot as plt
+#matplotlib.interactive(True)
+
 from scipy.ndimage import correlate
 import matplotlib.colors as colors
 from math import sqrt
@@ -651,7 +655,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     if (np.isnan(MUSE_1sig_V)):
         MUSE_1sig_V = MUSE_1sig
         
-    print('1sig Ha-map = ',MUSE_1sig,'; 1sig MUSE-V ',MUSE_1sig_V)
+    print('# 1sig Ha-map = ',MUSE_1sig,'; 1sig MUSE-V ',MUSE_1sig_V)
 
 
         
@@ -704,7 +708,6 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     blobs_final=np.concatenate((blobs_log_MUSE,blobs_log_MUSE_add), axis=0)
     
 
-
     
     #
     # Final Extraction
@@ -712,19 +715,37 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIextraction(F_Ha_MUSE_fill,blobs_final,\
                                                                             kind=0,we=2,\
                                                               FWHM_MUSE = FWHM_MUSE, refined = 0)
+
+    print("# Last iteration Num. = ",len(blobs_F_Ha))
+    #
+    # We clean the sample
+    #
+    mask_F_Ha = blobs_F_Ha>MUSE_3sig
+    blobs_F_Ha = blobs_F_Ha[mask_F_Ha]
+    blobs_final = blobs_final[mask_F_Ha]
+    print("# Clean above 3sigma Num = ",len(blobs_F_Ha))
+
     order=np.argsort(-1*blobs_F_Ha)
     blobs_F_Ha = blobs_F_Ha[order]
     blobs_final = blobs_final[order]
 
+
+    
     blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIextraction(F_Ha_MUSE_fill,blobs_final,\
                                                                             kind=0,we=2,\
                                                               FWHM_MUSE = FWHM_MUSE, refined = refined)
+
+
+
+    
+
     
     
     res_map = F_Ha_MUSE-(image_HII+diff_map)
-    X_sqr = (res_map**2)/np.abs(F_Ha_MUSE)
+    X_sqr = (res_map**2)/MUSE_3sig**2 #np.abs(F_Ha_MUSE)
     X_sqr_masked = np.ma.array(X_sqr, mask = mask_MUSE, fill_value=0.0)
-    X_sqr_sum = np.ma.sum(X_sqr_masked)/(len(blobs_F_Ha))
+ #   (nx_m,ny_m)=X_sqr.shape
+    X_sqr_sum = np.ma.sum(X_sqr_masked)/X_sqr_masked.count()#len(X_sqr#(nx*ny)#len(blobs_F_Ha))
     print('# X_sqr = ',X_sqr_sum)
     print('# HII reg clean=',len(blobs_final))
     
@@ -732,6 +753,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # Lets make some plots!
     #
     if (plot==1):
+#        matplotlib.rcParams['interactive'] == True
+#        plt.ion()
         fig, axes = plt.subplots(2,2, figsize=(15,15))
         cmap='gist_stern_r'
         im_Ha_MUSE=axes[0][0].imshow(F_Ha_MUSE, interpolation='none',\
@@ -767,8 +790,9 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         axes[1][1].set_xlim(0,nx)
         axes[1][1].set_ylim(0,ny)
 #        name_fig = 
-        fig.savefig("HIIblob.png", transparent=False, facecolor='white', edgecolor='white')
+#        fig.show()
 #        plt.show()
+        fig.savefig("HIIblob.png", transparent=False, facecolor='white', edgecolor='white')
 
     return blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux
 
