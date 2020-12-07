@@ -767,8 +767,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         axes[1][1].set_xlim(0,nx)
         axes[1][1].set_ylim(0,ny)
 #        name_fig = 
-#        fig.savefig("HIIblob.png", transparent=False, facecolor='white', edgecolor='white')
-        plt.show()
+        fig.savefig("HIIblob.png", transparent=False, facecolor='white', edgecolor='white')
+#        plt.show()
 
     return blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux
 
