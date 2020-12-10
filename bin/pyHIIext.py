@@ -26,7 +26,7 @@ import warnings
 import argparse
 
 
-parser = argparse.ArgumentParser(description='###Program to extract properties of HII regions and DIG from separate input files###', usage='extract_cl.py name input_file_fe input_file_ssp input_file_sfh input_file_index blobs_final diff_points FWHM_MUSE spax_sca plot def_DIG DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser = argparse.ArgumentParser(description='###Program to extract properties of HII regions and DIG from separate input files###', usage='pyHIIext.py name input_file_fe input_file_ssp input_file_sfh input_file_index blobs_final diff_points FWHM_MUSE spax_sca plot def_DIG DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('name', type=str, help='Name of the galaxy')
 parser.add_argument('input_file_fe', type=str, help='Input file flux elines')
