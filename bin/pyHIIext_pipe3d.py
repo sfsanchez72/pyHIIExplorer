@@ -25,7 +25,7 @@ from pyHIIExplorer.HIIblob import *
 import warnings
 import argparse
 
-parser = argparse.ArgumentParser(description='###Program to extract properties of HII regions and DIG from cube pip3d###', usage='extract_pipe3d_cl.py name input_file n_hdu_fe n_hdu_ssp n_hdu_sfh n_hdu_index blobs_final diff_points FWHM_MUSE spax_sca plot def_DIG DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser = argparse.ArgumentParser(description='###Program to extract properties of HII regions and DIG from cube pip3d###', usage='pyHIIext_pipe3d_cl.py name input_file n_hdu_fe n_hdu_ssp n_hdu_sfh n_hdu_index blobs_final diff_points FWHM_MUSE spax_sca plot def_DIG DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('name', type=str, help='Name of the galaxy')
 parser.add_argument('input_file', type=str, help='File of the galaxy: cube pip3d')
