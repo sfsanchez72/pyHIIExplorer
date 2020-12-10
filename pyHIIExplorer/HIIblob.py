@@ -634,7 +634,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         mean_F_Ha_MUSE_noise = np.nanmean(F_Ha_MUSE_noise)
         std_F_Ha_MUSE_noise = np.nanstd(F_Ha_MUSE_noise)
         MUSE_1sig = std_F_Ha_MUSE_noise
-        MUSE_3sig = 3*MUSE_1sig
+    MUSE_3sig = 3*MUSE_1sig
 
 # MUSE
 # g-band
@@ -646,12 +646,14 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         mean_V_MUSE_noise = np.nanmean(V_MUSE_noise)
         std_V_MUSE_noise = np.nanstd(V_MUSE_noise)
         MUSE_1sig_V = std_V_MUSE_noise
-        MUSE_3sig_V = 3*MUSE_1sig
         median_V_MUSE_pos = np.median(V_MUSE_pos)
         std_V_MUSE_pos = np.nanstd(V_MUSE[V_MUSE<median_V_MUSE_pos])
         median_V_MUSE = np.median(V_MUSE[V_MUSE<median_V_MUSE_pos])
         MUSE_1sig_V=np.min(np.array([MUSE_1sig_V,median_V_MUSE_pos,std_V_MUSE_pos,MUSE_1sig]))
 
+    MUSE_3sig_V = 3*MUSE_1sig
+
+        
     if (np.isnan(MUSE_1sig_V)):
         MUSE_1sig_V = MUSE_1sig
         
