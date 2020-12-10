@@ -25,7 +25,7 @@ from pyHIIExplorer.extract import *
 import warnings
 import argparse
 
-parser = argparse.ArgumentParser(description='###Program to detect HII regions from an image of Halpha###', usage='HIIblob_halfa_cl.py name input_file n_hdu FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg DIG_type_weight DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser = argparse.ArgumentParser(description='###Program to detect HII regions from an image of Halpha###', usage='pyHIIdet_img.py name input_file n_hdu FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg DIG_type_weight DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
 parser.add_argument('name',default='galaxy',type=str, help='Name of the galaxy')
