@@ -173,7 +173,7 @@ def extract_flux_refined(blobs,flux_input,image,kind=0,we=0,dr=3,plot=0):
             flux_now=np.ma.sum(image_sec_clean*w)
             w_now=np.sum(w)
             flux_now /= w_now
-            flux_now *= (nx_sec*ny_sec)
+            flux_now *= np.sum(w_l)#(nx_sec*ny_sec)
         #
         # MEAN
         #
@@ -295,8 +295,8 @@ def extract_flux(blobs,image,kind=0,we=0,dr=3):
         if (kind==0):
             flux_now=np.ma.sum(image_sec*w)
             w_now=np.sum(w)
-            flux_now /= w_now
-            flux_now *= (nx_sec*ny_sec)
+            flux_now/= w_now
+            flux_now *= np.sum(w_l)#(nx_sec*ny_sec)
         #
         # MEAN
         #
@@ -430,9 +430,10 @@ def create_HII_image(blobs,flux,nx,ny,dr=5):
         x_g, y_g = np.meshgrid(x_g, y_g) # get 2D variables instead of 1D
         xp_g = x-i0
         yp_g = y-j0
-        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
+        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r/sqrt(2), sy=r/sqrt(2))
 #        w_g = gaus2d(x_g, y_g, sx=r, sy=r)
-        image_HII = bflux*w_g/(2*np.pi)
+        image_HII = bflux*w_g #/ (2. * np.pi )
+#        (2*np.pi)
         if ((~np.isnan(bflux)) and (bflux>0)):
             image[j0:j1,i0:i1]=image[j0:j1,i0:i1]+image_HII
     return image
