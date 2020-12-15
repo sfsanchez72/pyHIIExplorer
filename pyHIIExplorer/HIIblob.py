@@ -297,6 +297,7 @@ def extract_flux(blobs,image,kind=0,we=0,dr=3):
             w_now=np.sum(w)
             flux_now/= w_now
             flux_now *= np.sum(w_l)#(nx_sec*ny_sec)
+#            flux_now = flux_now*np.sqrt(2)
         #
         # MEAN
         #
@@ -430,9 +431,13 @@ def create_HII_image(blobs,flux,nx,ny,dr=5):
         x_g, y_g = np.meshgrid(x_g, y_g) # get 2D variables instead of 1D
         xp_g = x-i0
         yp_g = y-j0
-        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r/sqrt(2), sy=r/sqrt(2))
+#        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r/sqrt(1.44), sy=r/sqrt(1.44))
+        w_g = sqrt(2)*gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r, sy=r)
 #        w_g = gaus2d(x_g, y_g, sx=r, sy=r)
-        image_HII = bflux*w_g #/ (2. * np.pi )
+#        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r/sqrt(2), sy=r/sqrt(2))
+#        w_g = gaus2d(x_g, y_g, mx=xp_g, my=yp_g,sx=r*sqrt(2), sy=r*sqrt(2))
+
+        image_HII = bflux*w_g * sqrt(2)#/ (2. * np.pi )
 #        (2*np.pi)
         if ((~np.isnan(bflux)) and (bflux>0)):
             image[j0:j1,i0:i1]=image[j0:j1,i0:i1]+image_HII
@@ -494,9 +499,12 @@ def create_diff(Ha_image,blobs_log_MUSE,FWHM_MUSE):
         r_p_MUSE = np.zeros(len(tri_MUSE.simplices))
         i=0
         for j, s in enumerate(tri_MUSE.simplices):
-            p = points_MUSE[s].mean(axis=0)
-            diff_p_MUSE[s,0]=p[0]
-            diff_p_MUSE[s,1]=p[1]
+            try:
+                p = points_MUSE[s].mean(axis=0)
+                diff_p_MUSE[s,0]=p[0]
+                diff_p_MUSE[s,1]=p[1]
+            except:
+                print("no diffuse points");
         #
         # We remove repeated points in the diffuse 
         #
