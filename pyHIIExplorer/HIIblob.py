@@ -525,9 +525,15 @@ def create_diff(Ha_image,blobs_log_MUSE,FWHM_MUSE):
         xgrid=np.arange(0, ny, 1)
         ygrid=np.arange(0, nx, 1)
         Xgrid, Ygrid = np.meshgrid(xgrid, ygrid)
-        new_array=np.array((diff_p_MUSE[:,1],diff_p_MUSE[:,0])).T
-        diff_interp_map = griddata(new_array, F_Ha_diff_MUSE, (Xgrid, Ygrid), method='nearest')
-        diff_interp_map_g=gaussian_filter(diff_interp_map, sigma=FWHM_MUSE)
+        #print("DIFF=",len(diff_p_MUSE[:,1]),len(diff_p_MUSE[:,0]))
+        if (len(diff_p_MUSE[:,1])>3):
+            new_array=np.array((diff_p_MUSE[:,1],diff_p_MUSE[:,0])).T
+            diff_interp_map = griddata(new_array, F_Ha_diff_MUSE, (Xgrid, Ygrid), method='nearest')
+            diff_interp_map_g=gaussian_filter(diff_interp_map, sigma=FWHM_MUSE)
+        else:
+            diff_interp_map_g=gaussian_filter(Ha_image, sigma=3*FWHM_MUSE)
+            diff_p_MUSE = np.zeros((len(points_MUSE),2))
+            F_Ha_diff_MUSE = np.zeros(len(points_MUSE))
     else:
         diff_interp_map_g=gaussian_filter(Ha_image, sigma=3*FWHM_MUSE)
         diff_p_MUSE = np.zeros((len(points_MUSE),2))
@@ -685,7 +691,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # Initial detection
     #
     blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
-                                                              max_sigma=2.0,\
+                                                              max_sigma=2.0*FWHM_MUSE,\
                                                               num_sigma=30, threshold=1.5*MUSE_1sig,\
                                                               FWHM_MUSE = 1.0)
 
@@ -697,7 +703,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     F_Ha_MUSE_masked = np.ma.array(F_Ha_MUSE_clean, mask = mask_MUSE, fill_value=0.0)
     F_Ha_MUSE_fill = F_Ha_MUSE_masked.filled()    
     blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map_2=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
-                                                                max_sigma=2.0,\
+                                                                max_sigma=2.0*FWHM_MUSE,\
                                                                 num_sigma=30, threshold=2.0*MUSE_1sig)
     print('# HII reg. 2nd = ',len(blobs_log_MUSE))
     diff_map,diff_points,diff_Flux = create_diff(F_Ha_MUSE_fill,blobs_log_MUSE,FWHM_MUSE)    
