@@ -83,7 +83,7 @@ print('Detecting HII regions')
 
 if(MUSE_1sig == -1.0):
     
-    MUSE_1sig = np.nanmean(eF_Ha_MUSE)
+    MUSE_1sig = np.nanmedian(eF_Ha_MUSE[F_Ha_MUSE!=0])
     print(MUSE_1sig)
 
 if(MUSE_1sig_V == -1.0):
@@ -143,16 +143,16 @@ table_HII = Table(dict_HII)
 for key in dict_HII.keys():
     table_HII[key].unit=dict_HII_units[key]
 
-file_table_HII = DIR+'/'+name+'.HIIblob_HII.tab.fits.gz'
-table_HII.write(file_table_HII, overwrite=True)  
+file_table_HII = DIR+'/'+name+'.HIIblob_HII.tab.ecsv'
+table_HII.write(file_table_HII, overwrite=True, delimiter=',')  
   
 
 table_DIG = Table(dict_DIG)
 for key in dict_DIG.keys():
     table_DIG[key].unit=dict_DIG_units[key]
 
-file_table_DIG = DIR+'/'+name+'.HIIblob_DIG.tab.fits.gz'
-table_DIG.write(file_table_DIG, overwrite=True)  
+file_table_DIG = DIR+'/'+name+'.HIIblob_DIG.tab.ecsv'
+table_DIG.write(file_table_DIG, overwrite=True, delimiter=',')  
   
 
 hdu_HII = fits.PrimaryHDU(data = image_HII)

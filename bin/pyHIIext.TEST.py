@@ -65,11 +65,13 @@ hdu = fits.open(input_file_fe)
 data = hdu[0].data
 hdr_fe = hdu[0].header
 
-
+hdu_ssp = fits.open(input_file_ssp)
+hdu_sfh = fits.open(input_file_sfh)
+hdu_index = fits.open(input_file_index)
 FWHM_MUSE = FWHM_MUSE/spax_sca
 
-blobs_final = Table.read(blobs_final)
-diff_points = Table.read(diff_points)
+blobs_final = Table.read(blobs_final, format='fits')
+diff_points = Table.read(diff_points, format='fits')
 
 
 blobs_final = np.array([blobs_final['Y'], blobs_final['X'], blobs_final['R']])
@@ -85,104 +87,93 @@ WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, hdu, 
 if(def_DIG==1):
     
     print('Extracting new DIG')
-
-#    hdr_fe_DIG = hdu_DIG.header
-
-#    data_HII = hdu_HII.data
-#    hdr_fe_HII = hdu_HII.header
     
-#    cube_clean = data-data_HII
-#    cube_diff = create_diff_cube(cube_clean,blobs_final,FWHM_MUSE,diff_points)
-    cube_diff = create_diff_cube(data-hdu_HII.data,blobs_final,FWHM_MUSE,diff_points)
+    data_DIG = hdu_DIG.data
+    hdr_fe_DIG = hdu_DIG.header
+
+    data_HII = hdu_HII.data
+    hdr_fe_HII = hdu_HII.header
+    
+    cube_clean = data-data_HII
+    cube_diff = create_diff_cube(cube_clean,blobs_final,FWHM_MUSE,diff_points)
     nz = hdr_fe['NAXIS3']
     nz_flux = int(nz/8)
-    data_DIG = hdu_DIG.data
     data_DIG[:nz_flux,:,:] = cube_diff[:nz_flux,:,:]
-    hdu_HII.data = None
-    hdu_DIG.data = None
-    WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, hdu, blobs_final, diff_points, FWHM_MUSE,  plot=plot, def_DIG=def_DIG, cube_DIG=data_DIG)    
-    hdu_DIG.data = data_DIG
-    data_DIG = None 
 
-hdu.close()
+    WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, hdu, blobs_final, diff_points, FWHM_MUSE,  plot=plot, def_DIG=def_DIG,cube_DIG=data_DIG)
     
+    hdu_DIG.data = data_DIG
+
 print('Saving outputsfile flux_elines')
 
-file_table_HII = DIR+"/HII."+name+".flux_elines.table.ecsv"
-file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.ecsv"
+#file_table_HII = DIR+"/HII."+name+".flux_elines.table.fits.gz"
+#file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.fits.gz"
+file_table_HII = DIR+"/HII."+name+".flux_elines.table.hdf5"
+file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.hdf5"
 
 file_HII = DIR+"/HII."+name+".flux_elines.cube.fits.gz"
 file_DIG = DIR+"/DIG."+name+".flux_elines.cube.fits.gz"
 
-table_HII.write(file_table_HII, overwrite=True, delimiter=',')
-table_DIG.write(file_table_DIG, overwrite=True, delimiter=',')
+
+table_HII.write(file_table_HII, overwrite=True)
+table_DIG.write(file_table_DIG, overwrite=True)
 
 hdu_HII.writeto(file_HII,  overwrite=True)
 hdu_DIG.writeto(file_DIG, overwrite=True)
 
-
 print('Extracting SSP')
 
-hdu_ssp = fits.open(input_file_ssp)
 hdu_SSP_HII, hdu_SSP_DIG, table_SSP_HII, table_SSP_DIG = extracting_ssp(name, hdu_ssp, WCS, 
                                                                                     blobs_final, diff_points, FWHM_MUSE, plot=plot)
-hdu_ssp.close()
 
 print('Saving outputsfile SSP')
 
-file_table_SSP_HII = DIR+"/HII."+name+'.SSP.table.ecsv'
-file_table_SSP_DIG = DIR+"/DIG."+name+'.SSP.table.ecsv'
+file_table_SSP_HII = DIR+"/HII."+name+'.SSP.table.fits.gz'
+file_table_SSP_DIG = DIR+"/DIG."+name+'.SSP.table.fits.gz'
 
 file_SSP_HII = DIR+"/HII."+name+'.SSP.cube.fits.gz'
 file_SSP_DIG = DIR+"/DIG."+name+'.SSP.cube.fits.gz'
 
-table_SSP_HII.write(file_table_SSP_HII, overwrite=True, delimiter=',')
-table_SSP_DIG.write(file_table_SSP_DIG, overwrite=True, delimiter=',')
+table_SSP_HII.write(file_table_SSP_HII, overwrite=True)
+table_SSP_DIG.write(file_table_SSP_DIG, overwrite=True)
 
 hdu_SSP_HII.writeto(file_SSP_HII, overwrite=True)
 hdu_SSP_DIG.writeto(file_SSP_DIG, overwrite=True)
 
-
-
 print('Extracting SFH')
 
-hdu_sfh = fits.open(input_file_sfh)
 hdu_SFH_HII, hdu_SFH_DIG, table_SFH_HII, table_SFH_DIG = extracting_sfh(name, hdu_sfh, WCS, 
-                                                                        blobs_final, diff_points, FWHM_MUSE, plot=plot)
-hdu_sfh.close()
-            
+                                                                                    blobs_final, diff_points, FWHM_MUSE, plot=plot)
+                                                                                    
 print('Saving outputsfile SFH')
 
-file_table_SFH_HII = DIR+"/HII."+name+'.SFH.table.ecsv'
-file_table_SFH_DIG = DIR+"/DIG."+name+'.SFH.table.ecsv'
+file_table_SFH_HII = DIR+"/HII."+name+'.SFH.table.fits.gz'
+file_table_SFH_DIG = DIR+"/DIG."+name+'.SFH.table.fits.gz'
 
 file_SFH_HII = DIR+"/HII."+name+'.SFH.cube.fits.gz'
 file_SFH_DIG = DIR+"/DIG."+name+'.SFH.cube.fits.gz'
 
-table_SFH_HII.write(file_table_SFH_HII, overwrite=True, delimiter=',')
-table_SFH_DIG.write(file_table_SFH_DIG, overwrite=True, delimiter=',')
+table_SFH_HII.write(file_table_SFH_HII, overwrite=True)
+table_SFH_DIG.write(file_table_SFH_DIG, overwrite=True)
 
 hdu_SFH_HII.writeto(file_SFH_HII, overwrite=True)
 hdu_SFH_DIG.writeto(file_SFH_DIG, overwrite=True)
 
-
-
 print('Extracting INDEX')
-hdu_index = fits.open(input_file_index)
+                                                                                    
 hdu_INDEX_HII, hdu_INDEX_DIG, table_INDEX_HII, table_INDEX_DIG = extracting_index(name, hdu_index, WCS, 
-                                                                                    blobs_final, diff_points, FWHM_MUSE,  plot=plot)
-hdu_index.close()
+                                                                                    blobs_final, diff_points, FWHM_MUSE,  plot=plot)    
 
 print('Saving outputsfile INDEX')
 
-file_table_INDEX_HII = DIR+"/HII."+name+'.INDEX.table.ecsv'
-file_table_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.table.ecsv'
+file_table_INDEX_HII = DIR+"/HII."+name+'.INDEX.table.fits.gz'
+file_table_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.table.fits.gz'
 
 file_INDEX_HII = DIR+"/HII."+name+'.INDEX.cube.fits.gz'
 file_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.cube.fits.gz'
         
-table_INDEX_HII.write(file_table_INDEX_HII, overwrite=True, delimiter=',')
-table_INDEX_DIG.write(file_table_INDEX_DIG, overwrite=True, delimiter=',')     
+table_INDEX_HII.write(file_table_INDEX_HII, overwrite=True)
+table_INDEX_DIG.write(file_table_INDEX_DIG, overwrite=True)     
 
 hdu_INDEX_HII.writeto(file_INDEX_HII, output_verify="ignore", overwrite=True)
 hdu_INDEX_DIG.writeto(file_INDEX_DIG, output_verify="ignore", overwrite=True)  

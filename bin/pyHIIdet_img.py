@@ -123,16 +123,16 @@ table_HII = Table(dict_HII)
 for key in dict_HII.keys():
     table_HII[key].unit=dict_HII_units[key]
 
-file_table_HII = DIR+'/'+name+'.HIIblob_HII.tab.fits.gz'
-table_HII.write(file_table_HII, overwrite=True)  
+file_table_HII = DIR+'/'+name+'.HIIblob_HII.tab.ecsv'
+table_HII.write(file_table_HII, overwrite=True, delimiter=',')  
   
 
 table_DIG = Table(dict_DIG)
 for key in dict_DIG.keys():
     table_DIG[key].unit=dict_DIG_units[key]
 
-file_table_DIG = DIR+'/'+name+'.HIIblob_DIG.tab.fits.gz'
-table_DIG.write(file_table_DIG, overwrite=True)  
+file_table_DIG = DIR+'/'+name+'.HIIblob_DIG.tab.ecsv'
+table_DIG.write(file_table_DIG, overwrite=True, delimiter=',')  
   
 
 hdu_HII = fits.PrimaryHDU(data = image_HII)

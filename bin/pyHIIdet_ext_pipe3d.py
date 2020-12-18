@@ -155,7 +155,7 @@ table_HII = Table(dict_HII)
 for key in dict_HII.keys():
     table_HII[key].unit=dict_HII_units[key]
 
-file_table_HII = DIR+'/'+name+'.HIIblob_HII.tab.fits.gz'
+file_table_HII = DIR+'/'+name+'.HIIblob_HII.tab.hdf5'
 table_HII.write(file_table_HII, overwrite=True)  
   
 
@@ -163,7 +163,7 @@ table_DIG = Table(dict_DIG)
 for key in dict_DIG.keys():
     table_DIG[key].unit=dict_DIG_units[key]
 
-file_table_DIG = DIR+'/'+name+'.HIIblob_DIG.tab.fits.gz'
+file_table_DIG = DIR+'/'+name+'.HIIblob_DIG.tab.hdf5'
 table_DIG.write(file_table_DIG, overwrite=True)  
   
 
@@ -226,8 +226,8 @@ print('Saving outputsfile flux_elines')
 file_HII = DIR+"/HII."+name+".flux_elines.cube.fits.gz"
 file_DIG = DIR+"/DIG."+name+".flux_elines.cube.fits.gz"
 
-file_table_HII = DIR+"/HII."+name+".flux_elines.table.fits.gz"
-file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.fits.gz"
+file_table_HII = DIR+"/HII."+name+".flux_elines.table.hdf5"
+file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.hdf5"
 
 hdu_HII.writeto(file_HII,  overwrite=True)
 hdu_DIG.writeto(file_DIG, overwrite=True)
@@ -248,8 +248,8 @@ file_SSP_DIG = DIR+"/DIG."+name+'.SSP.cube.fits.gz'
 hdu_SSP_HII.writeto(file_SSP_HII, overwrite=True)
 hdu_SSP_DIG.writeto(file_SSP_DIG, overwrite=True)
 
-file_table_SSP_HII = DIR+"/HII."+name+'.SSP.table.fits.gz'
-file_table_SSP_DIG = DIR+"/DIG."+name+'.SSP.table.fits.gz'
+file_table_SSP_HII = DIR+"/HII."+name+'.SSP.table.hdf5'
+file_table_SSP_DIG = DIR+"/DIG."+name+'.SSP.table.hdf5'
 
 table_SSP_HII.write(file_table_SSP_HII, overwrite=True)
 table_SSP_DIG.write(file_table_SSP_DIG, overwrite=True)
@@ -267,8 +267,8 @@ file_SFH_DIG = DIR+"/DIG."+name+'.SFH.cube.fits.gz'
 hdu_SFH_HII.writeto(file_SFH_HII, overwrite=True)
 hdu_SFH_DIG.writeto(file_SFH_DIG, overwrite=True)
 
-file_table_SFH_HII = DIR+"/HII."+name+'.SFH.table.fits.gz'
-file_table_SFH_DIG = DIR+"/DIG."+name+'.SFH.table.fits.gz'
+file_table_SFH_HII = DIR+"/HII."+name+'.SFH.table.hdf5'
+file_table_SFH_DIG = DIR+"/DIG."+name+'.SFH.table.hdf5'
 
 table_SFH_HII.write(file_table_SFH_HII, overwrite=True)
 table_SFH_DIG.write(file_table_SFH_DIG, overwrite=True)
@@ -286,8 +286,8 @@ file_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.cube.fits.gz'
 hdu_INDEX_HII.writeto(file_INDEX_HII, output_verify="ignore", overwrite=True)
 hdu_INDEX_DIG.writeto(file_INDEX_DIG, output_verify="ignore", overwrite=True)
 
-file_table_INDEX_HII = DIR+"/HII."+name+'.INDEX.table.fits.gz'
-file_table_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.table.fits.gz'
+file_table_INDEX_HII = DIR+"/HII."+name+'.INDEX.table.hdf5'
+file_table_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.table.hdf5'
 
 table_INDEX_HII.write(file_table_INDEX_HII, overwrite=True)
 table_INDEX_DIG.write(file_table_INDEX_DIG, overwrite=True)

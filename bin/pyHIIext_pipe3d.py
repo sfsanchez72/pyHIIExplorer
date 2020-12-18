@@ -76,8 +76,8 @@ hdr_sfh = hdu[n_hdu_sfh].header
 data_INDEX = hdu[n_hdu_index].data
 hdr_index = hdu[n_hdu_index].header
 
-blobs_final = Table.read(blobs_final, format='fits')
-diff_points = Table.read(diff_points, format='fits')
+blobs_final = Table.read(blobs_final)
+diff_points = Table.read(diff_points)
 
 
 blobs_final = np.array([blobs_final['Y'], blobs_final['X'], blobs_final['R']])
@@ -112,15 +112,15 @@ if(def_DIG==1):
 
 print('Saving outputsfile flux_elines')
 
-file_table_HII = DIR+"/HII."+name+".flux_elines.table.fits.gz"
-file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.fits.gz"
+file_table_HII = DIR+"/HII."+name+".flux_elines.table.ecsv"
+file_table_DIG = DIR+"/DIG."+name+".flux_elines.table.ecsv"
 
 file_HII = DIR+"/HII."+name+".flux_elines.cube.fits.gz"
 file_DIG = DIR+"/DIG."+name+".flux_elines.cube.fits.gz"
 
 
-table_HII.write(file_table_HII, overwrite=True)
-table_DIG.write(file_table_DIG, overwrite=True)
+table_HII.write(file_table_HII, overwrite=True, delimiter=',')
+table_DIG.write(file_table_DIG, overwrite=True, delimiter=',')
 
 hdu_HII.writeto(file_HII,  overwrite=True)
 hdu_DIG.writeto(file_DIG, overwrite=True)
@@ -132,14 +132,14 @@ hdu_SSP_HII, hdu_SSP_DIG, table_SSP_HII, table_SSP_DIG = extracting_ssp(name, da
 
 print('Saving outputsfile SSP')
 
-file_table_SSP_HII = DIR+"/HII."+name+'.SSP.table.fits.gz'
-file_table_SSP_DIG = DIR+"/DIG."+name+'.SSP.table.fits.gz'
+file_table_SSP_HII = DIR+"/HII."+name+'.SSP.table.ecsv'
+file_table_SSP_DIG = DIR+"/DIG."+name+'.SSP.table.ecsv'
 
 file_SSP_HII = DIR+"/HII."+name+'.SSP.cube.fits.gz'
 file_SSP_DIG = DIR+"/DIG."+name+'.SSP.cube.fits.gz'
 
-table_SSP_HII.write(file_table_SSP_HII, overwrite=True)
-table_SSP_DIG.write(file_table_SSP_DIG, overwrite=True)
+table_SSP_HII.write(file_table_SSP_HII, overwrite=True, delimiter=',')
+table_SSP_DIG.write(file_table_SSP_DIG, overwrite=True, delimiter=',')
 
 hdu_SSP_HII.writeto(file_SSP_HII, overwrite=True)
 hdu_SSP_DIG.writeto(file_SSP_DIG, overwrite=True)
@@ -151,14 +151,14 @@ hdu_SFH_HII, hdu_SFH_DIG, table_SFH_HII, table_SFH_DIG = extracting_sfh(name, da
                                                                                     
 print('Saving outputsfile SFH')
 
-file_table_SFH_HII = DIR+"/HII."+name+'.SFH.table.fits.gz'
-file_table_SFH_DIG = DIR+"/DIG."+name+'.SFH.table.fits.gz'
+file_table_SFH_HII = DIR+"/HII."+name+'.SFH.table.ecsv'
+file_table_SFH_DIG = DIR+"/DIG."+name+'.SFH.table.ecsv'
 
 file_SFH_HII = DIR+"/HII."+name+'.SFH.cube.fits.gz'
 file_SFH_DIG = DIR+"/DIG."+name+'.SFH.cube.fits.gz'
 
-table_SFH_HII.write(file_table_SFH_HII, overwrite=True)
-table_SFH_DIG.write(file_table_SFH_DIG, overwrite=True)
+table_SFH_HII.write(file_table_SFH_HII, overwrite=True, delimiter=',')
+table_SFH_DIG.write(file_table_SFH_DIG, overwrite=True, delimiter=',')
 
 hdu_SFH_HII.writeto(file_SFH_HII, overwrite=True)
 hdu_SFH_DIG.writeto(file_SFH_DIG, overwrite=True)
@@ -170,14 +170,14 @@ hdu_INDEX_HII, hdu_INDEX_DIG, table_INDEX_HII, table_INDEX_DIG = extracting_inde
 
 print('Saving outputsfile INDEX')
 
-file_table_INDEX_HII = DIR+"/HII."+name+'.INDEX.table.fits.gz'
-file_table_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.table.fits.gz'
+file_table_INDEX_HII = DIR+"/HII."+name+'.INDEX.table.ecsv'
+file_table_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.table.ecsv'
 
 file_INDEX_HII = DIR+"/HII."+name+'.INDEX.cube.fits.gz'
 file_INDEX_DIG = DIR+"/DIG."+name+'.INDEX.cube.fits.gz'
         
-table_INDEX_HII.write(file_table_INDEX_HII, overwrite=True)
-table_INDEX_DIG.write(file_table_INDEX_DIG, overwrite=True)     
+table_INDEX_HII.write(file_table_INDEX_HII, overwrite=True, delimiter=',')
+table_INDEX_DIG.write(file_table_INDEX_DIG, overwrite=True, delimiter=',')
 
 hdu_INDEX_HII.writeto(file_INDEX_HII, output_verify="ignore", overwrite=True)
 hdu_INDEX_DIG.writeto(file_INDEX_DIG, output_verify="ignore", overwrite=True)  
