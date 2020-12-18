@@ -624,7 +624,7 @@ def HIIdetection(Ha_image,min_sigma=0.8, max_sigma=2.0, num_sigma=30, threshold=
     #print('# Diff = ',len(diff_p_MUSE))
     return blobs_log_MUSE,blobs_F_Ha,image_HII,diff_interp_map_g
 
-def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refined=0, name="NONE"):
+def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refined=0, name="NONE", DIG_lim=1, num_sigma=30):
     #min_sigma=0.8, max_sigma=2.0,\
     #                            num_sigma=30,):
     """
@@ -635,7 +635,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         V_MUSE : 2D array image
             Continuum map image
         FWHM : float
-            FWHM of the image
+            FWHM of the image in arcsec
+
             
     """
     (nx,ny)=F_Ha_MUSE.shape
@@ -691,9 +692,11 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # Initial detection
     #
     blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
-                                                              max_sigma=2.0*FWHM_MUSE,\
-                                                              num_sigma=30, threshold=1.5*MUSE_1sig,\
+                                                              max_sigma=FWHM_MUSE,\
+                                                              num_sigma=num_sigma, threshold=1.5*MUSE_1sig,\
                                                               FWHM_MUSE = 1.0)
+
+    #                                                               max_sigma=2.0*FWHM_MUSE,\
 
     print('# HII reg. Initial = ',len(blobs_log_MUSE))
     #
@@ -703,8 +706,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     F_Ha_MUSE_masked = np.ma.array(F_Ha_MUSE_clean, mask = mask_MUSE, fill_value=0.0)
     F_Ha_MUSE_fill = F_Ha_MUSE_masked.filled()    
     blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map_2=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
-                                                                max_sigma=2.0*FWHM_MUSE,\
-                                                                num_sigma=30, threshold=2.0*MUSE_1sig)
+                                                                max_sigma=FWHM_MUSE,\
+                                                                num_sigma=num_sigma, threshold=2.0*MUSE_1sig)
     print('# HII reg. 2nd = ',len(blobs_log_MUSE))
     diff_map,diff_points,diff_Flux = create_diff(F_Ha_MUSE_fill,blobs_log_MUSE,FWHM_MUSE)    
     res_map = F_Ha_MUSE-(image_HII+diff_map)
@@ -713,8 +716,8 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # We find extra regions?
     #
     blobs_log_MUSE_add,blobs_F_Ha_add,\
-    image_HII_add,diff_map_add=HIIdetection(res_map, min_sigma=0.8, max_sigma=2.0,\
-                                            num_sigma=30, threshold=5.0*MUSE_1sig)
+    image_HII_add,diff_map_add=HIIdetection(res_map, min_sigma=0.8, max_sigma=FWHM_MUSE,\
+                                            num_sigma=num_sigma, threshold=5.0*MUSE_1sig)
     print('# HII reg. additional = ',len(blobs_log_MUSE_add))
     #  
     # Look for the 2nd more near point
@@ -737,7 +740,17 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     #
     # We clean the sample
     #
-    mask_F_Ha = blobs_F_Ha>MUSE_3sig
+
+    #
+    # Value of the diffuse at the location of Hii regions!
+    #
+    DIG_blobs_F_Ha,DIG_image_HII,DIG_diff_map_final,DIG_diff_points,DIG_diff_Flux=HIIextraction(diff_map_final,blobs_final,\
+                                                                                                kind=0,we=2,\
+                                                                FWHM_MUSE = FWHM_MUSE, refined = 0)
+
+    
+
+    mask_F_Ha = (blobs_F_Ha>MUSE_3sig) & (blobs_F_Ha>DIG_lim*DIG_blobs_F_Ha)
     blobs_F_Ha = blobs_F_Ha[mask_F_Ha]
     blobs_final = blobs_final[mask_F_Ha]
     print("# Clean above 3sigma Num = ",len(blobs_F_Ha))
