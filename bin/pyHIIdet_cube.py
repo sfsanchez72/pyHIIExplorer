@@ -26,7 +26,7 @@ from pyHIIExplorer.HIIblob import *
 import warnings
 import argparse
 
-parser = argparse.ArgumentParser(description='###Program to detect HII regions from a cube###', usage='pyHIIdet_cube.py name input_file n_hdu n_Ha n_eHa FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg DIG_type_weight DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser = argparse.ArgumentParser(description='###Program to detect HII regions from a cube###', usage='pyHIIdet_cube.py name input_file n_hdu n_Ha n_eHa FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg DIG_type_weight max_size DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
 parser.add_argument('name',default='galaxy',type=str, help='Name of the galaxy')
@@ -37,11 +37,12 @@ parser.add_argument('n_eHa', type=int, help='Index Halfa error')
 parser.add_argument('FWHM_MUSE', type=float, help='FWHM of the image')
 parser.add_argument('spax_sca', type=float, help='Spaxel scale')
 parser.add_argument('MUSE_1sig',default=0, type=float, help='1sig, -1=eHa')
-parser.add_argument('MUSE_1sig_V', default=0,type=float, help='1sig_continuum')
+parser.add_argument('MUSE_1sig_V', default=0,type=float, help='1sig_continuum, -1=eHa')
 parser.add_argument('plot', default=0, type=int, help='Plot, 0=not 1=yes')
 parser.add_argument('refined',default=0, type=int, help='Refined detection')
 parser.add_argument('maps_seg', default=0, type=int, help='To do segmentation maps, 0=not 1=yes')
 parser.add_argument('DIG_type_weight', default=0, type=int, help='Create new DIG 0=not 1=yes')
+parser.add_argument('max_size', default=2.0, type=float, help='Max_size, HIIregions')
 parser.add_argument('DIR', default='none', type=str, help='Where save outputfiles')
 
 args = parser.parse_args()
@@ -61,6 +62,7 @@ plot = args.plot
 refined = args.refined
 maps_seg = args.maps_seg
 DIG_type_weight = args.DIG_type_weight
+max_size = args.max_size
 DIR = args.DIR
 
 plt.ion()
@@ -83,7 +85,7 @@ print('Detecting HII regions')
 
 if(MUSE_1sig == -1.0):
     
-    MUSE_1sig = np.nanmedian(eF_Ha_MUSE[F_Ha_MUSE!=0])
+    MUSE_1sig = 0.2*np.nanmedian(eF_Ha_MUSE[F_Ha_MUSE!=0])
     print(MUSE_1sig)
 
 if(MUSE_1sig_V == -1.0):
@@ -91,12 +93,12 @@ if(MUSE_1sig_V == -1.0):
     eV_MUSE = gaussian_filter(eF_Ha_MUSE, sigma=FWHM_MUSE)
     mean_MUSE_1sig_V = np.nanmean(eV_MUSE)
     median_MUSE_1sig_V = np.nanmedian(eV_MUSE)
-    MUSE_1sig_V = np.min(np.array([mean_MUSE_1sig_V, median_MUSE_1sig_V]))
+    MUSE_1sig_V = 1.0*np.min(np.array([mean_MUSE_1sig_V, median_MUSE_1sig_V]))
 
     if(np.isnan(MUSE_1sig_V)):
         MUSE_1sig_V = MUSE_1sig
     
-blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE,MUSE_1sig=MUSE_1sig, MUSE_1sig_V=MUSE_1sig_V, plot=plot, refined=refined, name=name)
+blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE,MUSE_1sig=MUSE_1sig, MUSE_1sig_V=MUSE_1sig_V, plot=plot, refined=refined, name=name, max_size=max_size, DIR=DIR)
 
 if (DIG_type_weight==1):
     Ha_image_clean = F_Ha_MUSE - image_HII
