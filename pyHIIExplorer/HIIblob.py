@@ -1,10 +1,10 @@
-################################################################################################
+###############################################################################################
 #
 # HIIblob
 #
 # Description:
 #
-# Date: 04.11.2020
+# Date: 11.02.2021
 #
 # Authors: A.Z. Lugo-Aranda , S.F. Sanchez & J.K. Barrera-Ballesteros
 #
@@ -14,14 +14,13 @@
 ################################################################################################
 # SFS & JKBB
 # * STARS
-# DATE: Sep-Nov
+# DATE: Feb 2021
 ################################################################################################
 
 import numpy as np
 import scipy as sp
 from astropy.io import fits
 import matplotlib
-matplotlib.use('Agg')
 #matplotlib.interactive(False)
 import matplotlib.pyplot as plt
 #matplotlib.interactive(True)
@@ -624,7 +623,7 @@ def HIIdetection(Ha_image,min_sigma=0.8, max_sigma=2.0, num_sigma=30, threshold=
     #print('# Diff = ',len(diff_p_MUSE))
     return blobs_log_MUSE,blobs_F_Ha,image_HII,diff_interp_map_g
 
-def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refined=0, name="NONE", DIG_lim=1, num_sigma=30):
+def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refined=0, name="NONE", DIG_lim=1, num_sigma=30, max_size=1.0, DIR='none'):
     #min_sigma=0.8, max_sigma=2.0,\
     #                            num_sigma=30,):
     """
@@ -684,15 +683,16 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     V_MUSE = np.ma.masked_invalid(V_MUSE)
     F_Ha_MUSE_g=gaussian_filter(F_Ha_MUSE, sigma=2*FWHM_MUSE)
     V_MUSE_g=gaussian_filter(V_MUSE, sigma=2*FWHM_MUSE)
-    mask_MUSE = (F_Ha_MUSE_g<2*MUSE_1sig) | (V_MUSE_g<0.5*MUSE_1sig_V) 
+    mask_MUSE = (F_Ha_MUSE_g<2*MUSE_1sig) | (V_MUSE_g<0.5*MUSE_1sig_V) | (V_MUSE<MUSE_1sig_V)
     F_Ha_MUSE_masked = np.ma.array(F_Ha_MUSE, mask = mask_MUSE, fill_value=0.0)
     F_Ha_MUSE_fill = F_Ha_MUSE_masked.filled()
 
     #
     # Initial detection
     #
+    # max_sigma=FWHM_MUSE,\ # gives an error!
     blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
-                                                              max_sigma=FWHM_MUSE,\
+                                                              max_sigma=max_size,\
                                                               num_sigma=num_sigma, threshold=1.5*MUSE_1sig,\
                                                               FWHM_MUSE = 1.0)
 
@@ -705,8 +705,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     F_Ha_MUSE_clean = F_Ha_MUSE_fill-diff_map
     F_Ha_MUSE_masked = np.ma.array(F_Ha_MUSE_clean, mask = mask_MUSE, fill_value=0.0)
     F_Ha_MUSE_fill = F_Ha_MUSE_masked.filled()    
-    blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map_2=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
-                                                                max_sigma=FWHM_MUSE,\
+    blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map_2=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8, max_sigma=max_size,\
                                                                 num_sigma=num_sigma, threshold=2.0*MUSE_1sig)
     print('# HII reg. 2nd = ',len(blobs_log_MUSE))
     diff_map,diff_points,diff_Flux = create_diff(F_Ha_MUSE_fill,blobs_log_MUSE,FWHM_MUSE)    
@@ -716,7 +715,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # We find extra regions?
     #
     blobs_log_MUSE_add,blobs_F_Ha_add,\
-    image_HII_add,diff_map_add=HIIdetection(res_map, min_sigma=0.8, max_sigma=FWHM_MUSE,\
+    image_HII_add,diff_map_add=HIIdetection(res_map, min_sigma=0.8, max_sigma=max_size,\
                                             num_sigma=num_sigma, threshold=5.0*MUSE_1sig)
     print('# HII reg. additional = ',len(blobs_log_MUSE_add))
     #  
@@ -820,7 +819,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
         axes[1][1].set_xlim(0,nx)
         axes[1][1].set_ylim(0,ny)
         fileout_png = "HIIblob."+name+".png"
-        fig.savefig(fileout_png, transparent=False, facecolor='white', edgecolor='white')
+        fig.savefig(DIR+'/'+fileout_png, transparent=False, facecolor='white', edgecolor='white')
 
     return blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux
 
@@ -1071,8 +1070,6 @@ def create_diff_cube(cube_clean,blobs,FWHM_MUSE,diff_points, w_HII=20, w_DIG=30)
         cube_diff[i,:,:]=gaussian_filter(img_diff, sigma=1.5)
         i=i+1
     return cube_diff
-
-
 
 ################################################################################################
 # SFS & JKBB
