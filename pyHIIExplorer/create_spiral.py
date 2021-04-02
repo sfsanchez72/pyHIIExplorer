@@ -13,10 +13,10 @@ from skimage import data
 from skimage.feature import blob_dog, blob_log, blob_doh
 from skimage.color import rgb2gray
 from matplotlib.colors import LogNorm
-from scipy.ndimage import gaussian_filter, ndimage
+from scipy.ndimage import gaussian_filter,correlate
 from scipy.spatial import Delaunay, cKDTree, KDTree
 from scipy.interpolate import griddata
-from scipy.optimize import minimize, curve_fit, leastsq, correlate
+from scipy.optimize import minimize, curve_fit, leastsq
 import seaborn as sns
 import warnings
 import pandas as pd
@@ -113,7 +113,7 @@ def create_HII_image_leaking(blobs,flux,nx,ny,dr=5, fleak=0.1):
 
 
 #Create DIG
-def create_DIG (x_c=x_c,y_c=x_c,PA=PA,ab=ab,h_scale=h_scale,cont_peak=cont_peak,size=size):
+def create_DIG (x_c,y_c,PA,ab,h_scale,cont_peak,size):
     nx_in = 2*x_c
     ny_in = 2*y_c 
     x = np.arange(0, nx_in, 1)
