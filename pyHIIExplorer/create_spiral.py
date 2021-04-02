@@ -125,14 +125,14 @@ def create_DIG (x_c,y_c,PA,ab,h_scale,cont_peak,size):
     rv = np.sqrt(x_e_sp**2+y_e_sp**2)
     rv_disk = rv/h_scale
     cont_v = cont_peak*np.exp(-rv_disk)
-    EW_v= 0.5+1.0*np.random.rand(ny_in,nx_in) #np.random.normal(0.8,0.25,(ny_in,nx_in))?
-    #np.random.normal(1,0.1,(ny_in,nx_in))?
-    #np.random.rand(ny_in,nx_in)?
+    EW_v= 0.5+1.0*np.random.normal(0.8,0.25,(ny_in,nx_in))
+    #np.random.normal(1,0.1,(ny_in,nx_in))
+    #np.random.rand(ny_in,nx_in)
     Ha_v = EW_v*cont_v
-    slope_rand=0.25+0.2*np.random.rand(ny_in,nx_in)
-    N2_v=0.2+slope_rand[0]*rv_disk/size+0.5*(np.random.rand(ny_in,nx_in)-0.5)
-    slope_rand=1.7/4+1.3*(np.random.rand(ny_in,nx_in)-0.5)
-    O3_v=0.15+slope_rand[0]*rv_disk/size+0.5*(np.random.rand(ny_in,nx_in)-0.5)
+    slope_rand=0.25+0.2*np.random.normal(0.8,0.25,(ny_in,nx_in))
+    N2_v=0.2+slope_rand[0]*rv_disk/size+0.5*(np.random.normal(0.8,0.25,(ny_in,nx_in))-0.5)
+    slope_rand=1.7/4+1.3*(np.random.normal(0.8,0.25,(ny_in,nx_in))-0.5)
+    O3_v=0.15+slope_rand[0]*rv_disk/size+0.5*(np.random.normal(0.8,0.25,(ny_in,nx_in))-0.5)
     NII_v = 10**(N2_v)*Ha_v
     Hb_v = Ha_v/2.86
     OIII_v = 10**(O3_v)*Hb_v
