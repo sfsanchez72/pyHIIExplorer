@@ -691,7 +691,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # Initial detection
     #
     # max_sigma=FWHM_MUSE,\ # gives an error!
-    blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8,\
+    blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.4*max_size,\
                                                               max_sigma=max_size,\
                                                               num_sigma=num_sigma, threshold=1.5*MUSE_1sig,\
                                                               FWHM_MUSE = 1.0)
@@ -705,7 +705,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     F_Ha_MUSE_clean = F_Ha_MUSE_fill-diff_map
     F_Ha_MUSE_masked = np.ma.array(F_Ha_MUSE_clean, mask = mask_MUSE, fill_value=0.0)
     F_Ha_MUSE_fill = F_Ha_MUSE_masked.filled()    
-    blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map_2=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.8, max_sigma=max_size,\
+    blobs_log_MUSE,blobs_F_Ha,image_HII,diff_map_2=HIIdetection(F_Ha_MUSE_fill, min_sigma=0.4*max_size, max_sigma=max_size,\
                                                                 num_sigma=num_sigma, threshold=2.0*MUSE_1sig)
     print('# HII reg. 2nd = ',len(blobs_log_MUSE))
     diff_map,diff_points,diff_Flux = create_diff(F_Ha_MUSE_fill,blobs_log_MUSE,FWHM_MUSE)    
@@ -715,7 +715,7 @@ def HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=0, MUSE_1sig_V=0, plot=0, refi
     # We find extra regions?
     #
     blobs_log_MUSE_add,blobs_F_Ha_add,\
-    image_HII_add,diff_map_add=HIIdetection(res_map, min_sigma=0.8, max_sigma=max_size,\
+    image_HII_add,diff_map_add=HIIdetection(res_map, min_sigma=0.4*max_size, max_sigma=max_size,\
                                             num_sigma=num_sigma, threshold=5.0*MUSE_1sig)
     print('# HII reg. additional = ',len(blobs_log_MUSE_add))
     #  
