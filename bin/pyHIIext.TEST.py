@@ -87,22 +87,38 @@ WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, hdu, 
 if(def_DIG==1):
     
     print('Extracting new DIG')
-    
-    data_DIG = hdu_DIG.data
-    hdr_fe_DIG = hdu_DIG.header
+#    data_DIG = hdu_DIG.data    
+#    hdr_fe_DIG = hdu_DIG.header
 
-    data_HII = hdu_HII.data
-    hdr_fe_HII = hdu_HII.header
+#    data_HII = hdu_HII.data
+#    hdr_fe_HII = hdu_HII.header
     
-    cube_clean = data-data_HII
-    cube_diff = create_diff_cube(cube_clean,blobs_final,FWHM_MUSE,diff_points)
+#    cube_clean = data-data_HII
+#    cube_diff = create_diff_cube(cube_clean,blobs_final,FWHM_MUSE,diff_points)
+
+    cube_diff = create_diff_cube(data-hdu_HII.data,blobs_final,FWHM_MUSE,diff_points)
     nz = hdr_fe['NAXIS3']
     nz_flux = int(nz/8)
+    data_DIG = hdu_DIG.data
     data_DIG[:nz_flux,:,:] = cube_diff[:nz_flux,:,:]
-
-    WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, hdu, blobs_final, diff_points, FWHM_MUSE,  plot=plot, def_DIG=def_DIG,cube_DIG=data_DIG)
+    hdu_HII.data = None
+    hdu_DIG.data = None
+    WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, hdu, blobs_final, diff_points, FWHM_MUSE,  plot=plot, def_DIG=def_DIG, cube_DIG=data_DIG)    
+    #hdu_DIG.data = data_DIG #previo
+    #data_DIG = None #previo
     
-    hdu_DIG.data = data_DIG
+    # We create a new EW cube
+    #
+    nz_min_flux = 0 #
+    nz_max_flux = nz_flux-1 #
+    nz_min_EW = 3*nz_flux #
+    nz_max_EW = 4*nz_flux-1 #
+    # EW
+    data_DIG[nz_min_EW:nz_max_EW,:,:] = (data_DIG[nz_min_flux:nz_max_flux,:,:]/data[nz_min_flux:nz_max_flux,:,:])*data[nz_min_EW:nz_max_EW,:,:]#
+    hdu_DIG.data = data_DIG #
+    data_DIG = None #
+
+hdu.close()
 
 print('Saving outputsfile flux_elines')
 
