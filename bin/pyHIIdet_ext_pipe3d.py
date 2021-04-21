@@ -204,9 +204,8 @@ if (def_DIG==1):
   
     print('Extracting new DIG')
     
-    #data_DIG = hdu_DIG.data
+    data_DIG = hdu_DIG.data
     #hdr_fe_DIG = hdu_DIG.header
-
     #data_HII = hdu_HII.data
     #hdr_fe_HII = hdu_HII.header
     
@@ -215,8 +214,10 @@ if (def_DIG==1):
     cube_diff = create_diff_cube(cube_clean,blobs_final,FWHM_MUSE,diff_points)
     nz = hdr_fe['NAXIS3']
     nz_flux = int(nz/8)
-    data_DIG = hdu_DIG.data 
-    data_DIG[:nz_flux,:,:] = cube_diff[:nz_flux,:,:]
+    nz_min = 0
+    nz_max = nz_flux-1
+    data_DIG[nz_min:nz_max,:,:] = cube_diff[nz_min:nz_max,:,:]
+    #data_DIG[:nz_flux,:,:] = cube_diff[:nz_flux,:,:]
     hdu_HII.data = None
     hdu_DIG.data = None
 
