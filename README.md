@@ -14,12 +14,12 @@ The code is versatile and allows the user to: perform the detection and extracti
 
 ## Input parameters
 
-### Case 1: If the detection and extraction is in two steps 
+### Case 1: If the detection and extraction is in two steps
 
   #### Detection from a datacube flux_elines (pyHIIdet_cube.py):
 
-  1. Name (Galaxy name or target)
-  2. Input file (Cube flux_elines of the galaxy)
+  1. name (Galaxy name or target)
+  2. input file (Cube flux_elines of the galaxy)
   3. n_hdu (HDU data index)
   4. n_Ha (Index Halpha)
   5. n_eHa (Index Halpha error)
@@ -36,12 +36,23 @@ The code is versatile and allows the user to: perform the detection and extracti
   
   #### Detection from a image (pyHIIdet_img.py):
   
-  
-  
+  1. name (Galaxy name or target)
+  2. input file (Cube flux_elines of the galaxy)
+  3. n_hdu (HDU data index)
+  4. FWHM (FWHM of the image)
+  5. spax_sca (Spaxel scale)
+  6. MUSE_1sig (1sig, if the value is -1 then the program use Index Halpha error)
+  7. MUSE_1sig_V (1sig_continuum,  if the value is -1 then the program use Index Halpha error)
+  8. plot (Save plot,  where 0=not 1=yes)
+  9. refined (Refined detection)
+  10. maps_seg (Save segmentation maps, 0=not 1=yes)
+  11. DIG_type_weight (Create new DIG with weight system,  0=not 1=yes)
+  14. max_size (Max_size, HIIregions)
+  15. DIR (Where save outputfiles)
   
   #### Extraction (pyHIIext.py): 
 
-  1. Name (Galaxy name or target)
+  1. name (Galaxy name or target)
   2. input_file_fe (Input cube flux elines)
   3. input_file_ssp (Input cube ssp)
   4. input_file_sfh (Input file sfh)
@@ -54,7 +65,28 @@ The code is versatile and allows the user to: perform the detection and extracti
   11. def_DIG (Create new DIG with weight system only for fluxes,  0=not 1=yes)
   12. DIR (Where save outputfiles)
 
-### Case 1: If the detection and extraction is in two steps from a datacube flux_elines
+### Case 2: If the detection and extraction is in one step from a datacube Pipe3D
+
+  #### Detection and extraction (pyHIIdet_ext_pipe3d.py):
+  
+  1. name (Galaxy name or target)
+  2. input file (Cube flux_elines of the galaxy)
+  3. n_hdu_fe (HDU flux_elines index)
+  4. n_hdu_ssp (HDU single stellar populations index)
+  5. n_hdu_sfh (HDU star formation history index)
+  6. n_hdu_index (HDU Lick-indices index)
+  7. n_Ha (Index Halpha)
+  8. n_eHa (Index Halpha error)
+  9. FWHM (FWHM of the image)
+  10. spax_sca (Spaxel scale)
+  11. MUSE_1sig (1sig, if the value is -1 then the program use Index Halpha error)
+  12. MUSE_1sig_V (1sig_continuum,  if the value is -1 then the program use Index Halpha error)
+  13. plot (Save plot,  where 0=not 1=yes)
+  14. refined (Refined detection)
+  15. maps_seg (Save segmentation maps, 0=not 1=yes)
+  16. def_DIG (Create new DIG with weight system only for fluxes,  0=not 1=yes)
+  17. max_size (Max_size, HIIregions)
+  18. DIR (Where save outputfiles)
 
 
 
