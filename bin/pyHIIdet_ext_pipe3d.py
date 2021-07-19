@@ -26,7 +26,7 @@ from pyHIIExplorer.extract_all import *
 import warnings
 import argparse
 
-parser = argparse.ArgumentParser(description='###Program to detect and extract HII regions and DIG###', usage='pyHIIdet_ext_pipe3d.py name input_file n_hdu_fe n_hdu_ssp n_hdu_sfh n_hdu_index n_Ha n_eHa FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg def_DIG DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser = argparse.ArgumentParser(description='###Program to detect and extract HII regions and DIG###', usage='pyHIIdet_ext_pipe3d.py name input_file n_hdu_fe n_hdu_ssp n_hdu_sfh n_hdu_index n_Ha n_eHa FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg def_DIG max_size DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
 parser.add_argument('name',default='galaxy',type=str, help='Name of the galaxy')
@@ -45,6 +45,7 @@ parser.add_argument('plot', default=0, type=int, help='Plot')
 parser.add_argument('refined',default=0, type=int, help='Refined detection')
 parser.add_argument('maps_seg', default=0, type=int, help='To do segmentation maps')
 parser.add_argument('def_DIG', default=0, type=int, help='Create new DIG')
+parser.add_argument('max_size', default=2.0, type=float, help='Max_size, HIIregions')
 parser.add_argument('DIR', default='none', type=str, help='Where save outputfiles')
 
 args = parser.parse_args()
@@ -67,6 +68,7 @@ plot = args.plot
 refined = args.refined
 maps_seg = args.maps_seg
 def_DIG = args.def_DIG
+max_size = args.max_size
 DIR = args.DIR
 
 plt.ion()
@@ -112,7 +114,7 @@ if(MUSE_1sig_V == -1.0):
     if(np.isnan(MUSE_1sig_V)):
         MUSE_1sig_V = MUSE_1sig
 
-blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=MUSE_1sig, MUSE_1sig_V=MUSE_1sig_V, plot=plot, refined=refined, name=name)
+blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=MUSE_1sig, MUSE_1sig_V=MUSE_1sig_V, plot=plot, refined=refined, name=name, max_size=max_size, DIR=DIR)
 
 print('Creating dictionaries with HII regions and DIG')
 
@@ -221,7 +223,7 @@ if (def_DIG==1):
     hdu_HII.data = None
     hdu_DIG.data = None
 
-    WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, data, hdr_fe, blobs_final, diff_points, FWHM_MUSE, plot=plot, def_DIG=def_DIG,cube_DIG=data_DIG)
+    WCS, hdu_HII, hdu_DIG, table_HII, table_DIG = extracting_flux_elines(name, data, hdr_fe, blobs_final, diff_points, FWHM_MUSE, plot=plot, def_DIG=def_DIG, cube_DIG=data_DIG)
     
     #hdu_DIG.data = data_DIG
     nz_min_flux = 0 #
