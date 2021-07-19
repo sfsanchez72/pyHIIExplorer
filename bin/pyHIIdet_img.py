@@ -25,7 +25,7 @@ from pyHIIExplorer.extract import *
 import warnings
 import argparse
 
-parser = argparse.ArgumentParser(description='###Program to detect HII regions from an image of Halpha###', usage='pyHIIdet_img.py name input_file n_hdu FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg DIG_type_weight DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser = argparse.ArgumentParser(description='###Program to detect HII regions from an image of Halpha###', usage='pyHIIdet_img.py name input_file n_hdu FWHM_MUSE spax_sca MUSE_1sig MUSE_1sig_V plot refined maps_seg DIG_type_weight max_size DIR [--OPTIONAL_ARGUMENTS=*]\nRun with -h for details on the inputs\n ', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
 parser.add_argument('name',default='galaxy',type=str, help='Name of the galaxy')
@@ -39,6 +39,7 @@ parser.add_argument('plot', default=0, type=int, help='Plot, 0=not, 1=yes')
 parser.add_argument('refined',default=0, type=int, help='Refined detection')
 parser.add_argument('maps_seg', default=0, type=int, help='To do segmentation maps, 0=not, 1=yes')
 parser.add_argument('DIG_type_weight', default=0, type=int, help='Create new DIG, 0=not, 1=yes')
+parser.add_argument('max_size', default=2.0, type=float, help='Max_size, HIIregions')
 parser.add_argument('DIR', default='none', type=str, help='Where save outputfiles')
 
 args = parser.parse_args()
@@ -56,6 +57,7 @@ plot = args.plot
 refined = args.refined
 maps_seg = args.maps_seg
 DIG_type_weight = args.DIG_type_weight
+max_size = args.max_size
 DIR = args.DIR
 
 plt.ion()
@@ -69,20 +71,33 @@ F_Ha_MUSE = data
 nx=hdr_fe["NAXIS1"]
 ny=hdr_fe["NAXIS2"]
 
-
 FWHM_MUSE = FWHM_MUSE/spax_sca
 V_MUSE = gaussian_filter(F_Ha_MUSE, sigma=FWHM_MUSE)
 V_MUSE = np.ma.masked_invalid(V_MUSE)
 
 print('Detecting HII regions')
 
-blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=MUSE_1sig, MUSE_1sig_V=MUSE_1sig_V, plot=plot, refined=refined, name=name)
+if(MUSE_1sig == -1.0):
+    
+    MUSE_1sig = 0.2*np.nanmedian(eF_Ha_MUSE[F_Ha_MUSE!=0])
+    print(MUSE_1sig)
+
+if(MUSE_1sig_V == -1.0):
+    
+    eV_MUSE = gaussian_filter(eF_Ha_MUSE, sigma=FWHM_MUSE)
+    mean_MUSE_1sig_V = np.nanmean(eV_MUSE)
+    median_MUSE_1sig_V = np.nanmedian(eV_MUSE)
+    MUSE_1sig_V = 1.0*np.min(np.array([mean_MUSE_1sig_V, median_MUSE_1sig_V]))
+
+    if(np.isnan(MUSE_1sig_V)):
+        MUSE_1sig_V = MUSE_1sig
+
+blobs_final,blobs_F_Ha,image_HII,diff_map_final,diff_points,diff_Flux=HIIblob(F_Ha_MUSE,V_MUSE,FWHM_MUSE, MUSE_1sig=MUSE_1sig, MUSE_1sig_V=MUSE_1sig_V, plot=plot, refined=refined, name=name, max_size=max_size, DIR=DIR)
 
 if (DIG_type_weight==1):
     Ha_image_clean = F_Ha_MUSE - image_HII
     diff_map_final =  create_diff_new(Ha_image_clean,blobs_final,FWHM_MUSE,diff_points)
     
-
 print('Creating dictionaries with HII regions and DIG')
 
 dict_HII = {}
@@ -118,6 +133,7 @@ dict_DIG_units['X'] = 'spaxels'
 dict_DIG_units['Y'] = 'spaxels'
 dict_DIG_units['flux'] = '10^-16 erg/s/cm^2'
 
+print('Saving and writing outputfiles')
 
 table_HII = Table(dict_HII)
 for key in dict_HII.keys():
