@@ -64,6 +64,22 @@ The code is versatile and allows the user to: perform the detection and extracti
   10. plot (Save plot,  where 0=not 1=yes)
   11. def_DIG (Create new DIG with weight system only for fluxes,  0=not 1=yes)
   12. DIR (Where save outputfiles)
+  
+  #### Extraction (pyHIIext_pipe3d.py): 
+
+  1. name (Galaxy name or target)
+  2. input_file (Input cube Pipe3d)
+  3. n_hdu_fe (HDU flux_elines index)
+  4. n_hdu_ssp (HDU single stellar populations index)
+  5. n_hdu_sfh (HDU star formation history index)
+  6. n_hdu_index (HDU Lick-indices index)
+  7. blobs_final (Blobs of detection HII regions (table))
+  8. diff_points (Points diffuse (table))
+  9. FWHM (FWHM of the image)
+  10. spax_sca (Spaxel scale)
+  11. plot (Save plot,  where 0=not 1=yes)
+  12. def_DIG (Create new DIG with weight system only for fluxes,  0=not 1=yes)
+  13. DIR (Where save outputfiles)
 
 ### Case 2: If the detection and extraction is in one step from a datacube Pipe3D
 
@@ -87,6 +103,20 @@ The code is versatile and allows the user to: perform the detection and extracti
   16. def_DIG (Create new DIG with weight system only for fluxes,  0=not 1=yes)
   17. max_size (Max_size, HIIregions)
   18. DIR (Where save outputfiles)
+
+## Requerimemnts
+
+-python 3.x
+-numpy package
+-astropy package
+-scipy package
+-matplotlib package
+-skimage package
+-argparse module 
+
+## How to use it?
+
+
 
 
 
