@@ -16,7 +16,7 @@ The code is versatile and allows the user to: perform the detection and extracti
 
 ### Case 1: If the detection and extraction is in two steps
 
-  #### Detection from a datacube flux_elines (pyHIIdet_cube.py):
+  #### Detection from a datacube flux_elines (bin/pyHIIdet_cube.py):
 
   1. name (Galaxy name or target)
   2. input file (Cube flux_elines of the galaxy)
@@ -34,7 +34,7 @@ The code is versatile and allows the user to: perform the detection and extracti
   14. max_size (Max_size, HIIregions)
   15. DIR (Where save outputfiles)
   
-  #### Detection from a image (pyHIIdet_img.py):
+  #### Detection from a image (bin/pyHIIdet_img.py):
   
   1. name (Galaxy name or target)
   2. input file (Cube flux_elines of the galaxy)
@@ -50,7 +50,7 @@ The code is versatile and allows the user to: perform the detection and extracti
   14. max_size (Max_size, HIIregions)
   15. DIR (Where save outputfiles)
   
-  #### Extraction (pyHIIext.py): 
+  #### Extraction (bin/pyHIIext.py): 
 
   1. name (Galaxy name or target)
   2. input_file_fe (Input cube flux elines)
@@ -65,7 +65,7 @@ The code is versatile and allows the user to: perform the detection and extracti
   11. def_DIG (Create new DIG with weight system only for fluxes,  0=not 1=yes)
   12. DIR (Where save outputfiles)
   
-  #### Extraction (pyHIIext_pipe3d.py): 
+  #### Extraction (bin/pyHIIext_pipe3d.py): 
 
   1. name (Galaxy name or target)
   2. input_file (Input cube Pipe3d)
@@ -83,7 +83,7 @@ The code is versatile and allows the user to: perform the detection and extracti
 
 ### Case 2: If the detection and extraction is in one step from a datacube Pipe3D
 
-  #### Detection and extraction (pyHIIdet_ext_pipe3d.py):
+  #### Detection and extraction (bin/pyHIIdet_ext_pipe3d.py):
   
   1. name (Galaxy name or target)
   2. input file (Cube flux_elines of the galaxy)
@@ -106,17 +106,16 @@ The code is versatile and allows the user to: perform the detection and extracti
 
 ## Requerimemnts
 
--python 3.x
--numpy package
--astropy package
--scipy package
--matplotlib package
--skimage package
--argparse module 
+- python 3.x
+- numpy package
+- astropy package
+- scipy package
+- matplotlib package
+- skimage package
+- argparse module 
 
 ## How to use it?
 
-
-
+In the example file: bin/pyHIIdet_ext_pipe3d.py coudl find a implementation of full code with the file on data: NGC2906.Pipe3D.cube.fits.gz and the command line: **python3 pyHIIdet_ext_pipe3d.py NGC2906 NGC2906.Pipe3D.cube.fits.gz 3 1 2 4 45 245 2.3 1.0 0 0 1 3 1 1 2 file_for_save_results** The example cube is dataproduct of CALIFA survey for storage purposes. However, each script could be run it as standalone script.
 
 
