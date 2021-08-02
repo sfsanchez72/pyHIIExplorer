@@ -1,11 +1,11 @@
-# pyHIIExplorerV3
+# pyHIIextractor
 
-pyHIIexplorer V3 is a package for detecting and extracting physical properties from HII regions from integral field spectroscopy (IFS) datacubes or/and images. This version is based on pyHIIexplorer written by [Espinosa-Ponce, C. et al 2020](https://ui.adsabs.harvard.edu/abs/2020MNRAS.494.1622E/abstract). and HIIexplorer written by [Sánchez, S. F. et al 2012](https://ui.adsabs.harvard.edu/abs/2012A%26A...546A...2S/abstract).
+pyHIIextractor is a package for detecting and extracting physical properties from HII regions from integral field spectroscopy (IFS) datacubes or/and images. This version is based on pyHIIexplorer written by [Espinosa-Ponce, C. et al 2020](https://ui.adsabs.harvard.edu/abs/2020MNRAS.494.1622E/abstract). and HIIexplorer written by [Sánchez, S. F. et al 2012](https://ui.adsabs.harvard.edu/abs/2012A%26A...546A...2S/abstract).
 
 
 ## Quick Description
 
-We present a new tool called pyHIIexplorer V2 to explore and exploit the information provided by integral-field spectroscopy technique in the optical range. The code detects clumpy regions of Halpha maps (candidates for HII regions) and extracts as much spectroscopic information as possible (for both the underlying stellar populations and emission lines). Simultaneously during the detection and extraction of the clumpy regions, pyHIIexplorer V3 builds a diffuse ionized gas model (DIG). The construction of DIG will allow us to decontaminate the information of the HII regions candidates. 
+We present a new tool called pyHIIextractor to explore and exploit the information provided by integral-field spectroscopy technique in the optical range. The code detects clumpy regions of Halpha maps (candidates for HII regions) and extracts as much spectroscopic information as possible (for both the underlying stellar populations and emission lines). Simultaneously during the detection and extraction of the clumpy regions, pyHIIexplorer V3 builds a diffuse ionized gas model (DIG). The construction of DIG will allow us to decontaminate the information of the HII regions candidates. 
 
 ## Designed for all cases
 
