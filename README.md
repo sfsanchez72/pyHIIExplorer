@@ -5,7 +5,7 @@ pyHIIextractor is a package for detecting and extracting physical properties fro
 
 ## Quick Description
 
-We present a new tool called pyHIIextractor to explore and exploit the information provided by integral-field spectroscopy technique in the optical range. The code detects clumpy regions of Halpha maps (candidates for HII regions) and extracts as much spectroscopic information as possible (for both the underlying stellar populations and emission lines). Simultaneously during the detection and extraction of the clumpy regions, pyHIIexplorer V3 builds a diffuse ionized gas model (DIG). The construction of DIG will allow us to decontaminate the information of the HII regions candidates. 
+We present a new tool called pyHIIextractor to explore and exploit the information provided by integral-field spectroscopy technique in the optical range. The code detects clumpy regions of Halpha maps (candidates for HII regions) and extracts as much spectroscopic information as possible (for both the underlying stellar populations and emission lines). Simultaneously during the detection and extraction of the clumpy regions, pyHIIextractor builds a diffuse ionized gas model (DIG). The construction of DIG will allow us to decontaminate the information of the HII regions candidates. 
 
 ## Designed for all cases
 
